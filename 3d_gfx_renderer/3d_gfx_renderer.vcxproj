@@ -76,9 +76,11 @@
     <PreBuildEvent>
       <Message>
       </Message>
+      <Command>echo d | XCOPY "$(SolutionDir)3d_gfx_renderer\shaders" "$(SolutionDir)bin\shaders" /S /Y /D</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>XCOPY "$(SolutionDir)3d_gfx_renderer\shaders" "$(SolutionDir)bin\shaders" /S /Y</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -104,9 +106,11 @@
     <PreBuildEvent>
       <Message>
       </Message>
+      <Command>echo d | XCOPY "$(SolutionDir)3d_gfx_renderer\shaders" "$(SolutionDir)bin\shaders" /S /Y /D</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>XCOPY "$(SolutionDir)3d_gfx_renderer\shaders" "$(SolutionDir)bin\shaders" /S /Y</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
