@@ -33,7 +33,7 @@ For an IDE agnostic build use `buildnrun.bat`, release only (`msbuild` path has 
 | Directory | Information |
 |---|---|
 |[`asset`](https://github.com/hexahero/gfxren/tree/master/3d_gfx_renderer/gfxback/asset)        |Functionality necessary for importing textures, constructing meshes and models. Model 3D transformations.|
-|[`context`](https://github.com/hexahero/gfxren/tree/master/3d_gfx_renderer/gfxback/context)    |Provides application's front-end with components, needed to create window and rendering context.<br> Interacts with operating system/window-specific stuff.   |
+|[`context`](https://github.com/hexahero/gfxren/tree/master/3d_gfx_renderer/gfxback/context)    |Provides application's front-end with components, needed to create window and rendering context. Interacts with operating system/window-specific stuff.   |
 |[`gpudata`](https://github.com/hexahero/gfxren/tree/master/3d_gfx_renderer/gfxback/gpudata)    |Components allowing data transition between system and GPU memory. Data buffer creation.<br> Data upload and description. |
 |[`input`](https://github.com/hexahero/gfxren/tree/master/3d_gfx_renderer/gfxback/input)        |Keyboard and mouse input handling. Key binding.|
 |[`rendering`](https://github.com/hexahero/gfxren/tree/master/3d_gfx_renderer/gfxback/rendering)|Contains component responsible for drawing graphics and interaction with shader programs.|
