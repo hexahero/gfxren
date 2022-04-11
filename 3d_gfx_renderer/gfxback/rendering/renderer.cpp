@@ -30,7 +30,10 @@ namespace GFXREN {
 
 	}
 
-	void RENDERER::clear() const { GL_TRY(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)) }
+	void RENDERER::clear() const { 
+		
+		GL_TRY(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)) 
+	}
 	
 	void RENDERER::clear(float r, float g, float b, float a) const {
 		

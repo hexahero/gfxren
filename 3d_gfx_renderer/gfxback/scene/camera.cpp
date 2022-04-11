@@ -16,7 +16,6 @@ namespace GFXREN {
     {
         
         update_vectors();
-       
     }
 
     void CAMERA::update(GFXREN::SHADER& shader) {
@@ -34,14 +33,19 @@ namespace GFXREN {
 
             case CAM_DIR_FORWARD: cameraPosVec += cameraFrontVec * speedVal;
                 break;
+
             case CAM_DIR_BACKWARD: cameraPosVec -= cameraFrontVec * speedVal;
                 break;
+
             case CAM_DIR_RIGHT: cameraPosVec += cameraRightVec * speedVal;
                 break;
+
             case CAM_DIR_LEFT: cameraPosVec -= cameraRightVec * speedVal;
                 break;
+
             case CAM_DIR_UP: cameraPosVec += cameraUpVec * speedVal;
                 break;
+
             case CAM_DIR_DOWN: cameraPosVec -= cameraUpVec * speedVal;
                 break;
 
@@ -49,17 +53,34 @@ namespace GFXREN {
 
     }
 
-    void CAMERA::move_forward() { cameraPosVec += cameraFrontVec * speedVal; }
+    void CAMERA::move_forward() { 
+        
+        cameraPosVec += cameraFrontVec * speedVal; 
+    }
 
-    void CAMERA::move_backward() { cameraPosVec -= cameraFrontVec * speedVal; }
+    void CAMERA::move_backward() { 
+        
+        cameraPosVec -= cameraFrontVec * speedVal; 
+    }
 
-    void CAMERA::move_right() { cameraPosVec += cameraRightVec * speedVal; }
+    void CAMERA::move_right() { 
+        
+        cameraPosVec += cameraRightVec * speedVal; 
+    }
 
-    void CAMERA::move_left() { cameraPosVec -= cameraRightVec * speedVal; }
+    void CAMERA::move_left() { 
+        
+        cameraPosVec -= cameraRightVec * speedVal; 
+    }
 
-    void CAMERA::move_up() { cameraPosVec += cameraUpVec * speedVal; }
+    void CAMERA::move_up() { 
+        cameraPosVec += cameraUpVec * speedVal; 
+    }
 
-    void CAMERA::move_down() { cameraPosVec -= cameraUpVec * speedVal; }
+    void CAMERA::move_down() { 
+        
+        cameraPosVec -= cameraUpVec * speedVal; 
+    }
 
     void CAMERA::look_at(float dx, float dy) {
     
@@ -79,20 +100,34 @@ namespace GFXREN {
         
     }
     
-    void CAMERA::set_speed(float value, double deltaTime) { speedVal = float(deltaTime * value); }
+    void CAMERA::set_speed(float value, double deltaTime) { 
+        
+        speedVal = float(deltaTime * value); 
+    }
 
-    float CAMERA::get_yaw() const { return yawVal; }
+    float CAMERA::get_yaw() const { 
+        
+        return yawVal; 
+    }
 
-    float CAMERA::get_pitch() const { return pitchVal; }
+    float CAMERA::get_pitch() const { 
+        
+        return pitchVal; 
+    }
 
-    float CAMERA::get_speed() const { return speedVal; }
+    float CAMERA::get_speed() const { 
+        
+        return speedVal; 
+    }
 
-    float CAMERA::get_zoom() const { return zoomVal; }
+    float CAMERA::get_zoom() const { 
+        
+        return zoomVal; 
+    }
 
     glm::mat4 CAMERA::get_viewMatrix() const { 
         
         return glm::lookAt(cameraPosVec, cameraPosVec + cameraFrontVec, cameraUpVec); 
-    
     }
 
     void CAMERA::update_vectors() {

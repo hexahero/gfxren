@@ -44,7 +44,10 @@ namespace GFXREN {
 		
 	}
 
-	int MOUSE::press(int buttonCode) { return glfwGetMouseButton(window, buttonCode) == GLFW_PRESS; }
+	int MOUSE::press(int buttonCode) { 
+		
+		return glfwGetMouseButton(window, buttonCode) == GLFW_PRESS; 
+	}
 
 	bool MOUSE::scroll() {
 

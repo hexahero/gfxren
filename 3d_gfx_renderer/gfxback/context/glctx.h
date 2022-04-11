@@ -67,7 +67,12 @@ namespace GFXREN {
 
         GLCONTEXT() = delete;
         GLCONTEXT& operator = (const GLCONTEXT&) = delete;
-        GLCONTEXT(const char* wndClassName, const char* icoPath, int wndX, int wndY, int wndW, int wndH, bool log, bool swap);
+        GLCONTEXT(
+            const char* wndClassName, 
+            const char* icoPath, 
+            int wndX, int wndY, int wndW, int wndH, 
+            bool log, bool swap
+        );
 
         int run(void(*update)());
         

@@ -7,7 +7,12 @@
 
 namespace GFXREN {
 
-    GLCONTEXT::GLCONTEXT(const char* wndClassName, const char* icoPath, int wndX, int wndY, int wndW, int wndH, bool log, bool swap)
+    GLCONTEXT::GLCONTEXT(
+        const char* wndClassName, 
+        const char* icoPath, 
+        int wndX, int wndY, int wndW, int wndH, 
+        bool log, bool swap
+    )
         :
         wndClassName(wndClassName),
         icoPath(icoPath),
@@ -49,21 +54,35 @@ namespace GFXREN {
     
     }
 
-    double GLCONTEXT::get_deltaTime() const { return deltaTime; }
+    double GLCONTEXT::get_deltaTime() const { 
+        
+        return deltaTime; 
+    }
 
-    double GLCONTEXT::get_lastFrameTime() const { return lastFrame; }
+    double GLCONTEXT::get_lastFrameTime() const { 
+        
+        return lastFrame; 
+    }
 
-    double GLCONTEXT::get_currentFrameTime() const { return currentFrame; }
+    double GLCONTEXT::get_currentFrameTime() const { 
+        
+        return currentFrame; 
+    }
 
     void GLCONTEXT::enable_full_screen() {
 
         glfwSetWindowMonitor(window, true ? glfwGetPrimaryMonitor() : NULL, 0, 0, 1920, 1080, GLFW_DONT_CARE);
-
     }
 
-    unsigned int GLCONTEXT::get_screen_width() const { return wndW; }
+    unsigned int GLCONTEXT::get_screen_width() const { 
+        
+        return wndW; 
+    }
 
-    unsigned int GLCONTEXT::get_screen_height() const { return wndH; }
+    unsigned int GLCONTEXT::get_screen_height() const { 
+        
+        return wndH; 
+    }
 
     void GLCONTEXT::set_window_icon(const char* path) {
 
@@ -77,11 +96,20 @@ namespace GFXREN {
 
     }
 
-    void GLCONTEXT::set_window_title(const char* title) { glfwSetWindowTitle(window, title); }
+    void GLCONTEXT::set_window_title(const char* title) { 
+        
+        glfwSetWindowTitle(window, title); 
+    }
 
-    void GLCONTEXT::set_console_title(const char* title) { SetConsoleTitleA(title); }
+    void GLCONTEXT::set_console_title(const char* title) { 
+        
+        SetConsoleTitleA(title); 
+    }
 
-    int GLCONTEXT::get_fps() const { return int(1.0 / deltaTime); }
+    int GLCONTEXT::get_fps() const { 
+        
+        return int(1.0 / deltaTime); 
+    }
 
     void GLCONTEXT::show_fps_and_mspos(const char* title, MOUSE& ms) {
 
@@ -91,11 +119,20 @@ namespace GFXREN {
 
     }
 
-    const char* GLCONTEXT::get_adapter_vendor() const { return reinterpret_cast<const char*>(glGetString(GL_VENDOR)); }
+    const char* GLCONTEXT::get_adapter_vendor() const { 
+        
+        return reinterpret_cast<const char*>(glGetString(GL_VENDOR)); 
+    }
 
-    const char* GLCONTEXT::get_adapter_info() const { return reinterpret_cast<const char*>(glGetString(GL_RENDERER)); }
+    const char* GLCONTEXT::get_adapter_info() const { 
+        
+        return reinterpret_cast<const char*>(glGetString(GL_RENDERER)); 
+    }
 
-    const char* GLCONTEXT::get_gl_version() const { return reinterpret_cast<const char*>(glGetString(GL_VERSION)); }
+    const char* GLCONTEXT::get_gl_version() const { 
+        
+        return reinterpret_cast<const char*>(glGetString(GL_VERSION)); 
+    }
 
     void GLCONTEXT::print_system_info() const {
 
@@ -110,7 +147,10 @@ namespace GFXREN {
 
     }
 
-    GLFWwindow* GLCONTEXT::get_window_handle() const { return window; }
+    GLFWwindow* GLCONTEXT::get_window_handle() const { 
+        
+        return window; 
+    }
 
     int GLCONTEXT::init(bool log) {
 
@@ -201,11 +241,13 @@ namespace GFXREN {
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 
             glfwSetWindowShouldClose(window, true);
-
         }
 
     }
 
-    void GLCONTEXT::framebuffer_size_callback(GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); }
+    void GLCONTEXT::framebuffer_size_callback(GLFWwindow* window, int width, int height) { 
+        
+        glViewport(0, 0, width, height); 
+    }
 
 }

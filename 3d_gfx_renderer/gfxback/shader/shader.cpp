@@ -20,7 +20,10 @@ namespace GFXREN {
         build_shader_program(vertex, fragment, geometry);
     }
 
-    unsigned int SHADER::get_id() const { return shaderProgramID; }
+    unsigned int SHADER::get_id() const { 
+        
+        return shaderProgramID; 
+    }
 
     void SHADER::build_shader_program(const char* vertex, const char* fragment, const char* geometry) {
 

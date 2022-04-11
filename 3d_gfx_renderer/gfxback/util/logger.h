@@ -49,13 +49,22 @@ namespace GFXREN {
 	}
 
 	template<typename T>
-	LOGGER<T>::LOGGER(const char* fPath, const char* data) { log(fPath, data, LINFO); }
+	LOGGER<T>::LOGGER(const char* fPath, const char* data) { 
+		
+		log(fPath, data, LINFO); 
+	}
 
 	template<typename T>
-	LOGGER<T>::LOGGER(const char* fPath, const char* data, uint8_t logType)  { log(fPath, data, logType); }
+	LOGGER<T>::LOGGER(const char* fPath, const char* data, uint8_t logType)  { 
+		
+		log(fPath, data, logType); 
+	}
 
 	template<typename T>
-	void LOGGER<T>::clog(T data) { std::cout << data << '\n'; }
+	void LOGGER<T>::clog(T data) { 
+		
+		std::cout << data << '\n'; 
+	}
 
 	template<typename T>
 	void LOGGER<T>::clog(T data, uint8_t logType) {
@@ -67,7 +76,10 @@ namespace GFXREN {
 	}
 
 	template<typename T>
-	void LOGGER<T>::write_log(const char* fPath, T data) { fileStream.write(fPath, data); }
+	void LOGGER<T>::write_log(const char* fPath, T data) {
+
+		fileStream.write(fPath, data); 
+	}
 
 	template<typename T>
 	void LOGGER<T>::log(const char* fPath, T data, uint8_t logType) {
@@ -78,6 +90,9 @@ namespace GFXREN {
 	}
 
 	template<typename T>
-	void LOGGER<T>::set_text_color(uint8_t color) { SetConsoleTextAttribute(consoleHandle, color); }
+	void LOGGER<T>::set_text_color(uint8_t color) { 
+		
+		SetConsoleTextAttribute(consoleHandle, color); 
+	}
 
 }
