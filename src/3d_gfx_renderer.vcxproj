@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugWithProfile|x64">
+      <Configuration>DebugWithProfile</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{ee8bc0a7-cdf0-4584-a2aa-68265dcd450d}</ProjectGuid>
+    <RootNamespace>My3dgfxrenderer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>3d_gfx_renderer</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWithProfile|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugWithProfile|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\</OutDir>
+    <IntDir>$(SolutionDir)\bin\INT\</IntDir>
+    <TargetName>gfxren</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWithProfile|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\</OutDir>
+    <IntDir>$(SolutionDir)\bin\INT\</IntDir>
+    <TargetName>gfxren</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\</OutDir>
+    <IntDir>$(SolutionDir)\bin\INT\</IntDir>
+    <TargetName>gfxren</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX;</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\glfw\include\;$(SolutionDir)dependencies\glad\include\glad\;$(SolutionDir)dependencies\assimp\include\;$(SolutionDir)dependencies\stb\;$(SolutionDir)dependencies\glm\;$(SolutionDir)src\include\;$(SolutionDir)dependencies\imgui\;$(SolutionDir)dependencies\tracy\</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;$(SolutionDir)\dependencies\glfw\lib\glfw3-d.lib;Opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib;$(SolutionDir)\dependencies\assimp\lib\assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+    </Link>
+    <PreBuildEvent>
+      <Message>
+      </Message>
+      <Command>echo d | XCOPY "$(SolutionDir)src\shaders\" "$(SolutionDir)bin\shaders\" /S /Y /D
+echo d | XCOPY "$(SolutionDir)dependencies\assimp\lib\assimp-vc143-mtd.dll" "$(SolutionDir)bin" /S /Y /D</Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWithProfile|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX;TRACY_ENABLE;PROFILE;</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\glfw\include\;$(SolutionDir)dependencies\glad\include\glad\;$(SolutionDir)dependencies\assimp\include\;$(SolutionDir)dependencies\stb\;$(SolutionDir)dependencies\glm\;$(SolutionDir)src\include\;$(SolutionDir)dependencies\imgui\;$(SolutionDir)dependencies\tracy\</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;$(SolutionDir)\dependencies\glfw\lib\glfw3-d.lib;Opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib;$(SolutionDir)\dependencies\assimp\lib\assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+    </Link>
+    <PreBuildEvent>
+      <Message>
+      </Message>
+      <Command>echo d | XCOPY "$(SolutionDir)src\shaders\" "$(SolutionDir)bin\shaders\" /S /Y /D
+echo d | XCOPY "$(SolutionDir)dependencies\assimp\lib\assimp-vc143-mtd.dll" "$(SolutionDir)bin" /S /Y /D</Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX;</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\glfw\include\;$(SolutionDir)dependencies\glad\include\glad\;$(SolutionDir)dependencies\assimp\include\;$(SolutionDir)dependencies\stb\;$(SolutionDir)dependencies\glm\;$(SolutionDir)src\include\;$(SolutionDir)dependencies\imgui\;$(SolutionDir)dependencies\tracy\</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <FloatingPointModel>Precise</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;$(SolutionDir)\dependencies\glfw\lib\glfw3-r.lib;Opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib;$(SolutionDir)\dependencies\assimp\lib\assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+    </Link>
+    <PreBuildEvent>
+      <Message>
+      </Message>
+      <Command>echo d | XCOPY "$(SolutionDir)src\shaders\" "$(SolutionDir)bin\shaders\" /S /Y /D
+echo d | XCOPY "$(SolutionDir)dependencies\assimp\lib\assimp-vc143-mt.dll" "$(SolutionDir)bin" /S /Y /D</Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\dependencies\glad\src\glad.c" />
+    <ClCompile Include="..\dependencies\imgui\imgui.cpp" />
+    <ClCompile Include="..\dependencies\imgui\imgui_demo.cpp" />
+    <ClCompile Include="..\dependencies\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\dependencies\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="..\dependencies\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="..\dependencies\imgui\imgui_tables.cpp" />
+    <ClCompile Include="..\dependencies\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="..\dependencies\tracy\TracyClient.cpp" />
+    <ClCompile Include="gfxback\asset\asset.loader.cpp" />
+    <ClCompile Include="gfxback\asset\mesh.cpp" />
+    <ClCompile Include="gfxback\asset\model\model.cpp" />
+    <ClCompile Include="gfxback\asset\model\modelbase.cpp" />
+    <ClCompile Include="gfxback\asset\texture.cpp" />
+    <ClCompile Include="gfxback\context\glctx.cpp" />
+    <ClCompile Include="gfxback\gpudata\indxdata.cpp" />
+    <ClCompile Include="gfxback\gpudata\layouter.cpp" />
+    <ClCompile Include="gfxback\gpudata\vrtxdata.cpp" />
+    <ClCompile Include="gfxback\rendering\canvas.cpp" />
+    <ClCompile Include="gfxback\rendering\gui.cpp" />
+    <ClCompile Include="gfxback\util\exceptions.cpp" />
+    <ClCompile Include="gfxback\input\kbinput.cpp" />
+    <ClCompile Include="gfxback\input\msinput.cpp" />
+    <ClCompile Include="gfxback\util\filesystem.cpp" />
+    <ClCompile Include="gfxback\util\timer.cpp" />
+    <ClCompile Include="gfxback\rendering\renderer.cpp" />
+    <ClCompile Include="gfxback\scene\camera.cpp" />
+    <ClCompile Include="gfxback\shader\shader.cpp" />
+    <ClCompile Include="gfxfront\app.cpp" />
+    <ClCompile Include="gfxfront\gui\demogui.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\dependencies\imgui\imconfig.h" />
+    <ClInclude Include="..\dependencies\imgui\imgui.h" />
+    <ClInclude Include="..\dependencies\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="..\dependencies\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="..\dependencies\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="..\dependencies\imgui\imgui_internal.h" />
+    <ClInclude Include="..\dependencies\imgui\imstb_rectpack.h" />
+    <ClInclude Include="..\dependencies\imgui\imstb_textedit.h" />
+    <ClInclude Include="..\dependencies\imgui\imstb_truetype.h" />
+    <ClInclude Include="gfxback\asset\asset.loader.h" />
+    <ClInclude Include="gfxback\asset\mesh.h" />
+    <ClInclude Include="gfxback\asset\model\model.h" />
+    <ClInclude Include="gfxback\asset\model\modelbase.h" />
+    <ClInclude Include="gfxback\asset\texture.h" />
+    <ClInclude Include="gfxback\context\glctx.h" />
+    <ClInclude Include="gfxback\gpudata\indxdata.h" />
+    <ClInclude Include="gfxback\gpudata\layouter.h" />
+    <ClInclude Include="gfxback\gpudata\vrtxdata.h" />
+    <ClInclude Include="gfxback\rendering\canvas.h" />
+    <ClInclude Include="gfxback\rendering\colours.h" />
+    <ClInclude Include="gfxback\rendering\gui.h" />
+    <ClInclude Include="gfxback\rendering\lightsource.h" />
+    <ClInclude Include="gfxback\util\exceptions.h" />
+    <ClInclude Include="gfxback\global.h" />
+    <ClInclude Include="gfxback\input\kbinput.h" />
+    <ClInclude Include="gfxback\input\keycodes.h" />
+    <ClInclude Include="gfxback\input\msinput.h" />
+    <ClInclude Include="gfxback\util\filestream.hpp" />
+    <ClInclude Include="gfxback\util\filesystem.h" />
+    <ClInclude Include="gfxback\util\glerr.hpp" />
+    <ClInclude Include="gfxback\util\logger.hpp" />
+    <ClInclude Include="gfxback\util\timer.h" />
+    <ClInclude Include="gfxback\rendering\renderer.h" />
+    <ClInclude Include="gfxback\scene\camera.h" />
+    <ClInclude Include="gfxback\shader\shader.h" />
+    <ClInclude Include="gfxfront\app.h" />
+    <ClInclude Include="gfxfront\global.states.h" />
+    <ClInclude Include="gfxfront\gui\demogui.h" />
+    <ClInclude Include="include\gfxren.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\basic_pxl.glsl" />
+    <None Include="shaders\basic_vrtx.glsl" />
+    <None Include="shaders\model_load_pxl.glsl" />
+    <None Include="shaders\model_load_vrtx.glsl" />
+    <None Include="shaders\textureless_pxl.glsl" />
+    <None Include="shaders\textureless_vrtx.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="3d_gfx_renderer.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\resources\ico\cog_small.ico" />
+    <Image Include="..\resources\ico\cog_small.png" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

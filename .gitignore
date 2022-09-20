@@ -1,0 +1,4 @@
+.vs/
+bin/
+gfxren-cppcheck-build-dir/
+src/imgui.ini

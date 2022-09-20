@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\gfxback">
+      <UniqueIdentifier>{d2db0acd-a34b-4993-bfca-f0bea250d385}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gfxfront">
+      <UniqueIdentifier>{d7006535-7f38-4c31-b368-48f0326383ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gfxback\context">
+      <UniqueIdentifier>{7ae2355c-3be6-4c0f-9cea-b24fe7d0c5e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gfxback\input">
+      <UniqueIdentifier>{4f490123-f08b-42d8-8395-8cf75e28ddcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gfxback\rendering">
+      <UniqueIdentifier>{9e28a30b-96b2-47ac-aacf-1e2fd192fbb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gfxback\scene">
+      <UniqueIdentifier>{c49272f3-505b-4423-bd3e-945b0aa98fb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gfxback\asset">
+      <UniqueIdentifier>{ebb1e751-c946-4e77-a27c-8f78eaf4bec6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gfxback\shader">
+      <UniqueIdentifier>{732a5a4e-f932-46a0-a55e-2a76e17efe46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shaders">
+      <UniqueIdentifier>{86a5e69b-0140-4500-9998-3fb525c5d3dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\include">
+      <UniqueIdentifier>{d42ff02b-c41e-4c1f-b25e-fc0d74d8a62b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gfxback\util">
+      <UniqueIdentifier>{9bcc183a-974c-4af0-900f-df0ab9add6ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gfxback\gpudata">
+      <UniqueIdentifier>{748cb4a1-4fd2-4152-b437-421515a2c230}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gfxback\asset\model">
+      <UniqueIdentifier>{3fd406f8-5f44-43ca-bc9c-027a2944f2e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dependencies">
+      <UniqueIdentifier>{316b5476-ad35-4e26-a0aa-63b82f0c3759}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dependencies\imgui">
+      <UniqueIdentifier>{93c53772-0662-4a0f-9e56-05623bf044dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gfxfront\demogui">
+      <UniqueIdentifier>{a4023403-2cc6-4b9a-b2e9-935f64b00c3f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="gfxfront\app.cpp">
+      <Filter>Source Files\gfxfront</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\context\glctx.cpp">
+      <Filter>Source Files\gfxback\context</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\input\kbinput.cpp">
+      <Filter>Source Files\gfxback\input</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\input\msinput.cpp">
+      <Filter>Source Files\gfxback\input</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\asset\mesh.cpp">
+      <Filter>Source Files\gfxback\asset</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\asset\texture.cpp">
+      <Filter>Source Files\gfxback\asset</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\scene\camera.cpp">
+      <Filter>Source Files\gfxback\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\rendering\renderer.cpp">
+      <Filter>Source Files\gfxback\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\shader\shader.cpp">
+      <Filter>Source Files\gfxback\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\util\timer.cpp">
+      <Filter>Source Files\gfxback\util</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\util\exceptions.cpp">
+      <Filter>Source Files\gfxback\util</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\gpudata\vrtxdata.cpp">
+      <Filter>Source Files\gfxback\gpudata</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\gpudata\layouter.cpp">
+      <Filter>Source Files\gfxback\gpudata</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\asset\asset.loader.cpp">
+      <Filter>Source Files\gfxback\asset</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\rendering\canvas.cpp">
+      <Filter>Source Files\gfxback\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\gpudata\indxdata.cpp">
+      <Filter>Source Files\gfxback\util</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\util\filesystem.cpp">
+      <Filter>Source Files\gfxback\util</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\asset\model\model.cpp">
+      <Filter>Source Files\gfxback\asset\model</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\asset\model\modelbase.cpp">
+      <Filter>Source Files\gfxback\asset\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependencies\glad\src\glad.c">
+      <Filter>dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependencies\imgui\imgui.cpp">
+      <Filter>dependencies\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependencies\imgui\imgui_demo.cpp">
+      <Filter>dependencies\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependencies\imgui\imgui_draw.cpp">
+      <Filter>dependencies\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependencies\imgui\imgui_impl_glfw.cpp">
+      <Filter>dependencies\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependencies\imgui\imgui_impl_opengl3.cpp">
+      <Filter>dependencies\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependencies\imgui\imgui_tables.cpp">
+      <Filter>dependencies\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependencies\imgui\imgui_widgets.cpp">
+      <Filter>dependencies\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxback\rendering\gui.cpp">
+      <Filter>Source Files\gfxback\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dependencies\tracy\TracyClient.cpp">
+      <Filter>dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="gfxfront\gui\demogui.cpp">
+      <Filter>Source Files\gfxfront\demogui</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="gfxback\context\glctx.h">
+      <Filter>Source Files\gfxback\context</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\input\kbinput.h">
+      <Filter>Source Files\gfxback\input</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\input\keycodes.h">
+      <Filter>Source Files\gfxback\input</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\input\msinput.h">
+      <Filter>Source Files\gfxback\input</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\global.h">
+      <Filter>Source Files\gfxback</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\asset\mesh.h">
+      <Filter>Source Files\gfxback\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\asset\texture.h">
+      <Filter>Source Files\gfxback\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\scene\camera.h">
+      <Filter>Source Files\gfxback\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\rendering\renderer.h">
+      <Filter>Source Files\gfxback\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\shader\shader.h">
+      <Filter>Source Files\gfxback\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfxren.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\util\filestream.hpp">
+      <Filter>Source Files\gfxback\util</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\util\logger.hpp">
+      <Filter>Source Files\gfxback\util</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\util\timer.h">
+      <Filter>Source Files\gfxback\util</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\util\exceptions.h">
+      <Filter>Source Files\gfxback\util</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\rendering\canvas.h">
+      <Filter>Source Files\gfxback\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\gpudata\vrtxdata.h">
+      <Filter>Source Files\gfxback\gpudata</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\gpudata\layouter.h">
+      <Filter>Source Files\gfxback\gpudata</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\asset\asset.loader.h">
+      <Filter>Source Files\gfxback\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\rendering\colours.h">
+      <Filter>Source Files\gfxback\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\gpudata\indxdata.h">
+      <Filter>Source Files\gfxback\gpudata</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\util\filesystem.h">
+      <Filter>Source Files\gfxback\util</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\util\glerr.hpp">
+      <Filter>Source Files\gfxback\util</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\asset\model\model.h">
+      <Filter>Source Files\gfxback\asset\model</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\asset\model\modelbase.h">
+      <Filter>Source Files\gfxback\asset\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependencies\imgui\imconfig.h">
+      <Filter>dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependencies\imgui\imgui.h">
+      <Filter>dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependencies\imgui\imgui_impl_glfw.h">
+      <Filter>dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependencies\imgui\imgui_impl_opengl3.h">
+      <Filter>dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependencies\imgui\imgui_impl_opengl3_loader.h">
+      <Filter>dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependencies\imgui\imgui_internal.h">
+      <Filter>dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependencies\imgui\imstb_rectpack.h">
+      <Filter>dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependencies\imgui\imstb_textedit.h">
+      <Filter>dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dependencies\imgui\imstb_truetype.h">
+      <Filter>dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\rendering\gui.h">
+      <Filter>Source Files\gfxback\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxfront\gui\demogui.h">
+      <Filter>Source Files\gfxfront\demogui</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="gfxfront\app.h">
+      <Filter>Source Files\gfxfront</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxfront\global.states.h">
+      <Filter>Source Files\gfxfront</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\rendering\lightsource.h">
+      <Filter>Source Files\gfxback\rendering</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\textureless_vrtx.glsl">
+      <Filter>Source Files\shaders</Filter>
+    </None>
+    <None Include="shaders\textureless_pxl.glsl">
+      <Filter>Source Files\shaders</Filter>
+    </None>
+    <None Include="shaders\model_load_vrtx.glsl">
+      <Filter>Source Files\shaders</Filter>
+    </None>
+    <None Include="shaders\model_load_pxl.glsl">
+      <Filter>Source Files\shaders</Filter>
+    </None>
+    <None Include="shaders\basic_vrtx.glsl">
+      <Filter>Source Files\shaders</Filter>
+    </None>
+    <None Include="shaders\basic_pxl.glsl">
+      <Filter>Source Files\shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="3d_gfx_renderer.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\resources\ico\cog_small.png" />
+    <Image Include="..\resources\ico\cog_small.ico" />
+  </ItemGroup>
+</Project>
