@@ -44,6 +44,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *  @brief Declares the data structures in which the imported geometry is
     returned by ASSIMP: aiMesh, aiFace and aiBone data structures.
  */
+
+#pragma warning(push)
+#pragma warning(disable : 26495)
+
 #pragma once
 #ifndef AI_MESH_H_INC
 #define AI_MESH_H_INC
@@ -874,3 +878,5 @@ struct aiMesh {
 }
 #endif //! extern "C"
 #endif // AI_MESH_H_INC
+
+#pragma warning(pop)

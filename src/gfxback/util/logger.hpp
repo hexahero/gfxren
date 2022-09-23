@@ -32,24 +32,18 @@ namespace GFXREN {
 	private:
 
 		GFXREN::FILESTREAM<T>	_fileStream;
-		HANDLE					_consoleHandle;
-		
+		HANDLE					_consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+
 	};
 
 	template<typename T>
-	LOGGER<T>::LOGGER(const T& data)
-		:
-		_consoleHandle(GetStdHandle(STD_OUTPUT_HANDLE))
-	{ 
-		
-		clog(data); 
+	LOGGER<T>::LOGGER(const T& data) {
+
+		clog(data);
 	}
 
 	template<typename T>
-	LOGGER<T>::LOGGER(const T& data, uint8_t logType)
-		:
-		_consoleHandle(GetStdHandle(STD_OUTPUT_HANDLE))
-	{
+	LOGGER<T>::LOGGER(const T& data, uint8_t logType) {
 
 		set_text_color(logType),
 		clog(data),
@@ -58,19 +52,13 @@ namespace GFXREN {
 	}
 
 	template<typename T>
-	LOGGER<T>::LOGGER(const char* fPath, const char* data) 
-		:
-		_consoleHandle(GetStdHandle(STD_OUTPUT_HANDLE))
-	{ 
+	LOGGER<T>::LOGGER(const char* fPath, const char* data) {
 		
 		log(fPath, data, LINFO); 
 	}
 
 	template<typename T>
-	LOGGER<T>::LOGGER(const char* fPath, const char* data, uint8_t logType)
-		:
-		_consoleHandle(GetStdHandle(STD_OUTPUT_HANDLE))
-	{ 
+	LOGGER<T>::LOGGER(const char* fPath, const char* data, uint8_t logType) { 
 		
 		log(fPath, data, logType); 
 	}

@@ -84,8 +84,8 @@ namespace GFXREN {
         // Set vertex attribute pointers
         _dataLayoutDescriptor.describe_shader_attribute(0, 3, sizeof(VRTX), (0));
         _dataLayoutDescriptor.describe_shader_attribute(1, 2, sizeof(VRTX), (offsetof(VRTX, _texCoords)));
-        _dataLayoutDescriptor.describe_shader_attribute(2, 3, sizeof(TEX), (offsetof(VRTX, _normal)));
-
+        _dataLayoutDescriptor.describe_shader_attribute(2, 3, sizeof(VRTX), (offsetof(VRTX, _normal)));
+        
         // Unbind vao and buffers
         _dataLayoutDescriptor.unbind_descriptor_array();
         _indxData.unbind_indx_buff();

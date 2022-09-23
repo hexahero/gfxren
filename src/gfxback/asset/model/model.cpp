@@ -1,4 +1,5 @@
 #include "model.h"
+#include "../../rendering/renderer.h"
 
 namespace GFXREN {
 
@@ -13,7 +14,11 @@ namespace GFXREN {
 		_modelPath(modelPath),
 		_mdlPos(mdlPos),
 		_mdlScale({ 0.0f, 0.0f, 0.0f }),
-		_mdlAngle({ 0.0f, 0.0f, 0.0f })
+		_mdlAngle({ 0.0f, 0.0f, 0.0f }),
+		_isHidden(false),
+		_ambientIntensity{ 0.5f },
+		_specularIntensity{ 0.5f },
+		_pixelMode{ GFXREN_ILLUMINATED }
 	{
 
 		reset_transform_matrices();
@@ -29,7 +34,11 @@ namespace GFXREN {
 		_mdlPos(model._mdlPos),
 		_mdlScale(model._mdlScale),
 		_mdlAngle(model._mdlAngle),
-		MODELBASE(std::move(model))
+		_isHidden(false),
+		_ambientIntensity(model._ambientIntensity),
+		_specularIntensity(model._specularIntensity),
+		_pixelMode{ model._pixelMode },
+		GFXREN::MODELBASE(std::move(model))
 	{
 
 		reset_transform_matrices();
@@ -48,6 +57,12 @@ namespace GFXREN {
 			_mdlScale = model._mdlScale;
 			_mdlAngle = model._mdlAngle;
 
+			_ambientIntensity = model._ambientIntensity;
+			_specularIntensity = model._specularIntensity;
+
+			_isHidden = model._isHidden;
+			_pixelMode = model._pixelMode;
+
 			GFXREN::MODELBASE::operator = (std::move(model));
 
 			reset_transform_matrices();
@@ -56,6 +71,21 @@ namespace GFXREN {
 		}
 
 		return *this;
+	}
+
+	void MODEL::hide() {
+
+		_isHidden = true;
+	}
+
+	void MODEL::show() {
+
+		_isHidden = false;
+	}
+
+	bool MODEL::is_hidden() const {
+		
+		return _isHidden;
 	}
 
 	void MODEL::update(const GFXREN::SHADER& shader) {
@@ -76,20 +106,6 @@ namespace GFXREN {
 		_translateMtrx		=
 		_scaleMtrx			=
 		_rotationMtrx		= glm::mat4(1.0f);
-
-	}
-
-	void MODEL::enable_textures(const GFXREN::SHADER& shader) {
-
-		shader.use();
-		shader.set_bool("isTextured", true);
-
-	}
-
-	void MODEL::disable_textures(const GFXREN::SHADER& shader) {
-
-		shader.use();
-		shader.set_bool("isTextured", false);
 
 	}
 
@@ -154,6 +170,41 @@ namespace GFXREN {
 
 		std::cout << ss.str() << '\n';
 
+	}
+
+	glm::vec3 MODEL::get_position() const {
+
+		return _mdlPos;
+	}
+
+	float MODEL::get_ambient_light_intensity() const {
+
+		return _ambientIntensity;
+	}
+
+	float MODEL::get_specularity() const {
+
+		return _specularIntensity;
+	}
+
+	unsigned int MODEL::get_pixel_mode() const {
+
+		return _pixelMode;
+	}
+
+	void MODEL::set_ambient_light_intensity(float ambientIntensity) {
+
+		_ambientIntensity = ambientIntensity;
+	}
+
+	void MODEL::set_specularity(float specularIntensity) {
+
+		_specularIntensity = specularIntensity;
+	}
+
+	void MODEL::set_pixel_mode(unsigned int pixelMode) {
+
+		_pixelMode = pixelMode;
 	}
 
 }

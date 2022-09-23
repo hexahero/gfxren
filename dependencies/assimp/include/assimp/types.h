@@ -42,6 +42,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /** @file types.h
  *  Basic data types and primitives, such as vectors or colors.
  */
+
+#pragma warning(push)
+#pragma warning(disable : 26451)
+
 #pragma once
 #ifndef AI_TYPES_H_INC
 #define AI_TYPES_H_INC
@@ -536,3 +540,5 @@ struct aiMemoryInfo {
 #include "quaternion.inl"
 
 #endif // AI_TYPES_H_INC
+
+#pragma warning(pop)

@@ -16,4 +16,5 @@
 #include "../gfxback/rendering/canvas.h"
 #include "../gfxback/rendering/gui.h"
 #include "../gfxback/scene/camera.h"
+#include "../gfxback/scene/lightsource.h"
 #include "../gfxback/asset/model/model.h"

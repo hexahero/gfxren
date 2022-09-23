@@ -7,11 +7,16 @@ namespace GFXREN {
 		imgui_initialize(window);
 	}
 
+	GUI::~GUI() {
+
+		destroy();
+	}
+
 	void GUI::imgui_initialize(GLFWwindow* window) {
 
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
-		_guiIO = &ImGui::GetIO(); 
+		_guiIO = &ImGui::GetIO();
 		reinterpret_cast<void*>(_guiIO);
 		ImGui::StyleColorsDark();
 		ImGui_ImplGlfw_InitForOpenGL(window, true);

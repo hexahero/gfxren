@@ -4,8 +4,13 @@
 #include "../shader/shader.h"
 #include "../asset/model/model.h"
 #include "../util/glerr.hpp"
-#include "colours.h"
+#include "colors.h"
 #include "canvas.h"
+
+#define GFXREN_SOLID_COLOR			1
+#define GFXREN_SURFACE_NORMALS		2
+#define GFXREN_TEXTURE_ONLY			3
+#define GFXREN_ILLUMINATED			4
 
 namespace GFXREN {
 
@@ -15,7 +20,7 @@ namespace GFXREN {
 
 	    RENDERER();
 
-		void draw_model(MODEL& model, SHADER& shader, bool wireframe, bool isTextured = true) const;
+		void draw_model(MODEL& model, SHADER& shader, bool wireframe) const;
 		void draw_shader_canvas(CANVAS& canvas, SHADER& shader, bool wireframe = false) const ;
 
 		void clear() const;

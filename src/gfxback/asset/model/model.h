@@ -22,12 +22,13 @@ namespace GFXREN {
 		MODEL& operator = (MODEL&& model) noexcept;
 
 		// Control
+		void hide();
+		void show();
+		bool is_hidden() const;
+
 		void update(const GFXREN::SHADER& shader);
 		void reset_transform_matrices();
-
-		void enable_textures(const GFXREN::SHADER& shader);
-		void disable_textures(const GFXREN::SHADER& shader);
-				
+		
 		// Transformations
 		void move(float x, float y, float z);
 		void set_position(float x, float y, float z);
@@ -40,13 +41,23 @@ namespace GFXREN {
 		std::string		get_name() const;
 		inline void		print_model_data() const;
 
+		glm::vec3		get_position() const;
+
+		float			get_ambient_light_intensity() const;
+		float			get_specularity() const;
+		unsigned int	get_pixel_mode() const;
+
+		void set_ambient_light_intensity(float ambientIntensity);
+		void set_specularity(float specularIntensity);
+		void set_pixel_mode(unsigned int pixelMode);
+		
 	private:
 
 		// General data
 		std::string _name;
 		std::string _modelPath;
 
-		// Transformation data
+		// Transformation and display data
 		glm::vec3 _mdlPos;
 		glm::vec3 _mdlScale;
 		glm::vec3 _mdlAngle;
@@ -55,6 +66,14 @@ namespace GFXREN {
 		glm::mat4 _translateMtrx;
 		glm::mat4 _scaleMtrx;
 		glm::mat4 _rotationMtrx;
+
+		bool _isHidden;
+
+		// Lighting & material data
+		float _ambientIntensity;
+		float _specularIntensity;
+
+		unsigned int _pixelMode;
 
 	};
 

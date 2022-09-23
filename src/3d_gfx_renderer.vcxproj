@@ -152,6 +152,8 @@ echo d | XCOPY "$(SolutionDir)dependencies\assimp\lib\assimp-vc143-mtd.dll" "$(S
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <LanguageStandard_C>Default</LanguageStandard_C>
       <FloatingPointModel>Precise</FloatingPointModel>
+      <Optimization>MaxSpeed</Optimization>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -194,6 +196,7 @@ echo d | XCOPY "$(SolutionDir)dependencies\assimp\lib\assimp-vc143-mt.dll" "$(So
     <ClCompile Include="gfxback\gpudata\vrtxdata.cpp" />
     <ClCompile Include="gfxback\rendering\canvas.cpp" />
     <ClCompile Include="gfxback\rendering\gui.cpp" />
+    <ClCompile Include="gfxback\scene\lightsource.cpp" />
     <ClCompile Include="gfxback\util\exceptions.cpp" />
     <ClCompile Include="gfxback\input\kbinput.cpp" />
     <ClCompile Include="gfxback\input\msinput.cpp" />
@@ -225,9 +228,9 @@ echo d | XCOPY "$(SolutionDir)dependencies\assimp\lib\assimp-vc143-mt.dll" "$(So
     <ClInclude Include="gfxback\gpudata\layouter.h" />
     <ClInclude Include="gfxback\gpudata\vrtxdata.h" />
     <ClInclude Include="gfxback\rendering\canvas.h" />
-    <ClInclude Include="gfxback\rendering\colours.h" />
+    <ClInclude Include="gfxback\rendering\colors.h" />
     <ClInclude Include="gfxback\rendering\gui.h" />
-    <ClInclude Include="gfxback\rendering\lightsource.h" />
+    <ClInclude Include="gfxback\scene\lightsource.h" />
     <ClInclude Include="gfxback\util\exceptions.h" />
     <ClInclude Include="gfxback\global.h" />
     <ClInclude Include="gfxback\input\kbinput.h" />

@@ -145,6 +145,9 @@
     <ClCompile Include="gfxfront\gui\demogui.cpp">
       <Filter>Source Files\gfxfront\demogui</Filter>
     </ClCompile>
+    <ClCompile Include="gfxback\scene\lightsource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gfxback\context\glctx.h">
@@ -204,7 +207,7 @@
     <ClInclude Include="gfxback\asset\asset.loader.h">
       <Filter>Source Files\gfxback\asset</Filter>
     </ClInclude>
-    <ClInclude Include="gfxback\rendering\colours.h">
+    <ClInclude Include="gfxback\rendering\colors.h">
       <Filter>Source Files\gfxback\rendering</Filter>
     </ClInclude>
     <ClInclude Include="gfxback\gpudata\indxdata.h">
@@ -255,15 +258,17 @@
     <ClInclude Include="gfxfront\gui\demogui.h">
       <Filter>Source Files\gfxfront\demogui</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="gfxfront\app.h">
       <Filter>Source Files\gfxfront</Filter>
     </ClInclude>
     <ClInclude Include="gfxfront\global.states.h">
       <Filter>Source Files\gfxfront</Filter>
     </ClInclude>
-    <ClInclude Include="gfxback\rendering\lightsource.h">
-      <Filter>Source Files\gfxback\rendering</Filter>
+    <ClInclude Include="resource.h">
+      <Filter>Source Files\gfxback\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\scene\lightsource.h">
+      <Filter>Source Files\gfxback\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

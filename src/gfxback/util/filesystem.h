@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <algorithm>  
 #include <Windows.h>
 
 #define GLFW_EXPOSE_NATIVE_WIN32

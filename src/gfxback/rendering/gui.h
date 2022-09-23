@@ -6,7 +6,7 @@
 
 #include <GLFW/glfw3.h>
 
-#include "colours.h"
+#include "colors.h"
 
 namespace GFXREN {
 
@@ -19,6 +19,7 @@ namespace GFXREN {
 
 		// Coustruct/setup
 		GUI(GLFWwindow* window);
+		~GUI();
 		void imgui_initialize(GLFWwindow* window);
 
 		// Base behaviour

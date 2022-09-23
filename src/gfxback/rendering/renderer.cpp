@@ -14,26 +14,49 @@ namespace GFXREN {
 
 	}
 
-	void RENDERER::draw_model(MODEL& model, SHADER& shader, bool wireframe, bool isTextured) const {
+	void RENDERER::draw_model(MODEL& model, SHADER& shader, bool wireframe) const {
 		
+		if (model.is_hidden()) return;
+
 		// Engage shader
 		shader.use();
 
-		// Update model internal states
+		// Update model's internal states
 		model.update(shader);
 
-		// Check for textureless mode
-		if (isTextured) 
-			model.enable_textures(shader);
-		else
-			model.disable_textures(shader);
+		// Check for color mode and update lighting data
+		switch(model.get_pixel_mode()) {
+
+			case GFXREN_SOLID_COLOR:
+				shader.set_int("pixelMode", GFXREN_SOLID_COLOR);
+				break;
+
+			case GFXREN_SURFACE_NORMALS:
+				shader.set_int("pixelMode", GFXREN_SURFACE_NORMALS);
+				shader.set_float("ambientIntensity", 1.0f);
+				shader.set_float("specularIntensity", 0.0f);
+				break;
+
+			case GFXREN_TEXTURE_ONLY:
+				shader.set_int("pixelMode", GFXREN_TEXTURE_ONLY);
+				shader.set_float("ambientIntensity", 1.0f);
+				shader.set_float("specularIntensity", 0.0f);
+				break;
+
+			case GFXREN_ILLUMINATED:
+				shader.set_int("pixelMode", GFXREN_ILLUMINATED);
+				shader.set_float("ambientIntensity", model.get_ambient_light_intensity());
+				shader.set_float("specularIntensity", model.get_specularity());
+				break;
+
+		}
 
 		// Enable alpha blending
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		// Check for wireframe mode
-		if (wireframe == true)
+		if (wireframe)
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		else 
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

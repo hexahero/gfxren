@@ -140,6 +140,56 @@ namespace GFXREN {
         return _fullscreen;
     }
 
+    void GLCONTEXT::enable_vsync() {
+
+        _swap = true;
+
+        #ifdef _WIN32
+        
+                typedef BOOL(WINAPI* PFNWGLSWAPINTERVALEXTPROC)(int interval);
+                PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT = NULL;
+        
+                wglSwapIntervalEXT = reinterpret_cast<PFNWGLSWAPINTERVALEXTPROC>(wglGetProcAddress("wglSwapIntervalEXT"));
+                
+                if (wglSwapIntervalEXT != nullptr)
+                    wglSwapIntervalEXT(1);
+                else
+                    PRINT_ERROR("FAILED TO ENABLE VERTICAL SYNCHRONIZATION", true, false);
+        
+        #else
+        
+                #define GLFW_USE_DWM_SWAP_INTERVAL
+                glfwSwapInterval(true);
+        
+        #endif
+
+    }
+
+    void GLCONTEXT::disable_vsync() {
+
+        _swap = false;
+
+        #ifdef _WIN32
+        
+                typedef BOOL(WINAPI* PFNWGLSWAPINTERVALEXTPROC)(int interval);
+                PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT = NULL;
+        
+                wglSwapIntervalEXT = reinterpret_cast<PFNWGLSWAPINTERVALEXTPROC>(wglGetProcAddress("wglSwapIntervalEXT"));
+        
+                if (wglSwapIntervalEXT != nullptr)
+                    wglSwapIntervalEXT(0);
+                else
+                    PRINT_ERROR("FAILED TO DISABLE VERTICAL SYNCHRONIZATION", true, false);
+        
+        #else
+                
+                #define GLFW_USE_DWM_SWAP_INTERVAL
+                glfwSwapInterval(false);
+        
+        #endif
+
+    }
+
     glm::vec2 GLCONTEXT::get_screen_resolution() const {
 
         return { _wndW, _wndH };
@@ -241,8 +291,9 @@ namespace GFXREN {
         std::stringstream info;
 
         info
-        << "[OpenGL] " << get_gl_version()
-        << "\n" << get_adapter_info();
+            << "[OpenGL] " << get_gl_version()
+            << "\nDisplay: " << _monitorResolution.x << 'x' << _monitorResolution.y
+            << '\n' << get_adapter_info();
 
         logger.clog(info.str());
         logger.clog(get_adapter_vendor(), LSUCCESS);
@@ -318,26 +369,9 @@ namespace GFXREN {
         glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);
 
         // Turn on vsync
-        if (_swap) {
-
-        #ifdef _WIN32
-      
-            typedef BOOL(WINAPI* PFNWGLSWAPINTERVALEXTPROC)(int interval);
-            PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT = NULL;
-
-            wglSwapIntervalEXT = reinterpret_cast<PFNWGLSWAPINTERVALEXTPROC>(wglGetProcAddress("wglSwapIntervalEXT"));
-
-            if (wglSwapIntervalEXT) wglSwapIntervalEXT(1);
-
-        #else
-
-            #define GLFW_USE_DWM_SWAP_INTERVAL
-            glfwSwapInterval(swap);
-
-        #endif
-
-        }
-
+        if (_swap) 
+            enable_vsync();
+           
         return 0;
     }
 
@@ -370,6 +404,8 @@ namespace GFXREN {
             process_input(_window);
 
             update();
+
+            if (_swap) glFinish();
 
             glfwSwapBuffers(_window);
             glfwPollEvents();

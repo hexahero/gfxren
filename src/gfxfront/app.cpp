@@ -86,6 +86,8 @@ void bind_keys() {
 
 void process_input() {
 
+    mouse.cursor_update();
+
     if (keyboard.press(GFXREN_KEY_W)) {
 
         camera.move_forward();
@@ -143,44 +145,29 @@ void process_input() {
 
     }
 
-    mouse.cursor_update();
-
 }
 
 void setup() {
 
     bind_keys();
+
+    lightSource.set_light_color({ GFXREN_WHITE });
     camera.set_pitch(-30.0f);
 
     gui.register_action("enable_face_culling",      [=]() { app.enable_face_culling(); });
     gui.register_action("disable_face_culling",     [=]() { app.disable_face_culling(); });
     gui.register_action("enable_wireframe_mode",    [=]() { wireframeMode = true; });
     gui.register_action("disable_wireframe_mode",   [=]() { wireframeMode = false; });
-    gui.register_action("enable_textures",          [=]() { textured = true; });
-    gui.register_action("disable_textures",         [=]() { textured = false; });
+    gui.register_action("enable_surface_normals",   [=]() { for (auto& model : models) model.set_pixel_mode(GFXREN_SURFACE_NORMALS); });
+    gui.register_action("disable_surface_normals",  [=]() { for (auto& model : models) model.set_pixel_mode(GFXREN_ILLUMINATED); });
 
     refgrid.set_scale(10.0f, 10.0f, 10.0f);
-    lightsource.set_scale(0.5f, 0.5f, 0.5f);
 
 }
 
 void update_frame() {
-    
 
-    renderer.clear(clearColour);
-    
-    // Temp lighting stuff
-    lightsourceShader.use();
-    lightsourceShader.set_vec4("lightColor", { 1.0f, 1.0f, 1.0f, 1.0f });
-
-    basicShader.use();
-
-    basicShader.set_vec3("cameraPos", camera.get_position());
-    basicShader.set_vec3("lightPos", { 10.0f, 9.0f, 0.0f });
-    basicShader.set_vec4("lightColor", { 1.0f, 1.0f, 1.0f, 1.0f });
-
-    basicShader.set_float("ambientIntensity", 0.5f);
-    basicShader.set_float("specularIntensity", 0.5f);
+    renderer.clear(clearColor);
 
     // Process input
     if (!gui.is_capturing_mouse()) process_input();
@@ -189,20 +176,22 @@ void update_frame() {
     camera.set_speed(10.0f, app.get_deltaTime());
     camera.update(basicShader);
     camera.update(refgridShader);
-    camera.update(lightsourceShader);
+    camera.update(lightSource.get_shader());
+
+    lightSource.update(basicShader);
 
     // Update model states
-    if (!models.empty()) models[0].rotate(0.7f, { 0.0f, 0.5f, 0.0f });
+    //if (!models.empty()) models[0].rotate(0.7f, { 0.0f, 0.5f, 0.0f });
     
     // Make draw calls
-
     for (auto& model : models)
-        renderer.draw_model(model, basicShader, wireframeMode, textured);
-
-    renderer.draw_model(lightsource, lightsourceShader, false, false);
+        renderer.draw_model(model, basicShader, wireframeMode);
+        
+    if (lightSourceOn)
+        renderer.draw_model(lightSource, lightSource.get_shader(), false);
 
     if (refgridOn)
-        renderer.draw_model(refgrid, refgridShader, false, false);
+        renderer.draw_model(refgrid, refgridShader, false);
 
     // Draw GUI
     if (guiEnabled) gui.draw();
@@ -216,7 +205,6 @@ int main() {
 
     setup();
     app.run(update_frame);
-    gui.destroy();
 
     return 0;
 }

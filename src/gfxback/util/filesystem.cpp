@@ -8,7 +8,8 @@ namespace UTIL {
 
         std::string extension;
 
-        for (size_t i = path.size(); i != 0; --i) {
+        // Starting from second last character in order to skip the null terminator!
+        for (size_t i = path.size() - 1; i != 0; --i) {
 
             if (path[i] == '.') break;
 
@@ -18,14 +19,15 @@ namespace UTIL {
 
         std::reverse(extension.begin(), extension.end());
 
-        return extension.c_str();
+        return extension;
 	}
     
     std::string get_file_name(const std::string& path) {
 
         std::string fileName;
 
-        for (size_t i = path.size(); i != 0; --i) {
+        // Starting from second last character in order to the skip null terminator!
+        for (size_t i = path.size() - 1; i != 0; --i) {
 
             if (path[i] == '/' || path[i] == '\\') break;
 
@@ -35,7 +37,7 @@ namespace UTIL {
 
         std::reverse(fileName.begin(), fileName.end());
 
-        return fileName.c_str();
+        return fileName;
     }
 
     std::string get_relative_path(const std::string& targetDirectory) {
@@ -98,8 +100,11 @@ namespace UTIL {
 
     std::string normalize_file_path(std::string& path) {
 
-         for (auto& character : path)
-            if (character == '\\') character = '/'; 
+        std::replace_if(
+            path.begin(), path.end(),
+            [](const char& p) { return p == '\\' ? true : false; },
+            static_cast<char>('/')
+        );
 
         return path;
     }

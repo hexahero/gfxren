@@ -67,22 +67,13 @@ GFXREN::SHADER refgridShader(
     DEFAULT_DIR"scene/refgrid.pxl.glsl"
 );
 
-GFXREN::SHADER lightsourceShader(
-    DEFAULT_DIR"scene/lightsource.vrtx.glsl",
-    DEFAULT_DIR"scene/lightsource.pxl.glsl"
-);
-
 GFXREN::MODEL refgrid(
     "Reference grid",
     GFXREN::UTIL::get_relative_path("gfxren") + "resources/models/refgrid/refgrid.gltf",
     { 0.0f, 0.0f, 0.0f }
 );
 
-GFXREN::MODEL lightsource(
-    "Light source",
-    GFXREN::UTIL::get_relative_path("gfxren") + "resources/models/hipoly_sphere/sphere.gltf",
-    { 10.0f, 9.0f, 0.0f }
-);
+GFXREN::LIGHTSOURCE lightSource(camera);
 
 #endif
 

@@ -24,7 +24,7 @@ namespace GFXREN {
         glm::vec3 _bitangent;
 
         int     _boneIDs[MAX_BONE_INFLUENCE];
-        float   _wights[MAX_BONE_INFLUENCE];
+        float   _weights[MAX_BONE_INFLUENCE];
 
     };
 
