@@ -1,7 +1,12 @@
 # **gfxren**
 **Simplistic 3D graphics renderer implemented in C++ and OpenGL 3.3 API**<br>
-Current project state: core functionality is implemented, awaiting further feature extension (in development)<br><br>
-<img src='./meta/demo800px.gif'><br>
+Current project state: core functionality is implemented, awaiting further feature extension (in development)<br>
+
+<img src='./meta/sponza_knight.png' width="30%"></img>
+<img src='./meta/sponza_solid_color.png' width="30%"></img>
+<img src='./meta/dna.png' width="30%"></img>
+<br>Credits:
+"Grey Knight" by LamedeFeu, "DNA" by Holoxica. (more at the end of the readme)
 
 ## **Build Requirements (tested)**<br>
 
@@ -43,11 +48,15 @@ For an IDE agnostic build use `buildnrun.bat`, release only (`msbuild` path has 
 
 ## **Roadmap**<br>
 Nearest future
-- Implement model import feature<br>
-- GUI<br>
-- Lighting and antialiasing<br>
+- Implement model import feature (implemented)<br>
+- GUI (implemented)<br>
+- Lighting and antialiasing (partially implemented)<br>
 
 Long-term perspective
 - Basic physics<br>
 - Software ray-tracing<br>
 - Skeletal animations<br>
+
+<br>Credits to the authors of the assets used in this project<br>
+"Grey Knight" (https://sketchfab.com/3d-models/grey-knight-0885c00ffa75478e9c6abe6b0370d285) by LamedeFeu (https://sketchfab.com/lamedefeu) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)<br>
+"DNA" (https://sketchfab.com/3d-models/dna-60e95170b37549e3b45ee490b74bb112) by Holoxica (https://sketchfab.com/holoxica) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)<br>
