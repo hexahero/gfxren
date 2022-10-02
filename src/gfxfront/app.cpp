@@ -48,13 +48,13 @@ void bind_keys() {
         if (!app.is_fullscreen()) {
 
             guiEnabled = false;
-            app.enable_full_screen();
+            app.enable_full_screen_borderless();
 
         }
         else {
 
             guiEnabled = true;
-            app.disable_full_screen();
+            app.disable_full_screen_borderless();
 
         }
         
@@ -152,8 +152,11 @@ void setup() {
     bind_keys();
 
     lightSource.set_light_color({ GFXREN_WHITE });
-    camera.set_pitch(-30.0f);
+	lightSource.set_position(10.0f, 9.0f, 0.0f);
 
+	camera.set_speed(10.0f);
+    camera.set_pitch(-30.0f);
+	
     gui.register_action("enable_face_culling",      [=]() { app.enable_face_culling(); });
     gui.register_action("disable_face_culling",     [=]() { app.disable_face_culling(); });
     gui.register_action("enable_wireframe_mode",    [=]() { wireframeMode = true; });
@@ -161,7 +164,7 @@ void setup() {
     gui.register_action("enable_surface_normals",   [=]() { for (auto& model : models) model.set_pixel_mode(GFXREN_SURFACE_NORMALS); });
     gui.register_action("disable_surface_normals",  [=]() { for (auto& model : models) model.set_pixel_mode(GFXREN_ILLUMINATED); });
 
-    refgrid.set_scale(10.0f, 10.0f, 10.0f);
+	glEnable(GL_MULTISAMPLE); //To replace with a custom framebuffer multisampling
 
 }
 
@@ -173,15 +176,12 @@ void update_frame() {
     if (!gui.is_capturing_mouse()) process_input();
     
     // Update scene state
-    camera.set_speed(10.0f, app.get_deltaTime());
-    camera.update(basicShader);
-    camera.update(refgridShader);
-    camera.update(lightSource.get_shader());
+    camera.update(app.get_deltaTime());
+    camera.update_shader(basicShader);
+    camera.update_shader(refgrid.get_shader());
+    camera.update_shader(lightSource.get_shader());
 
     lightSource.update(basicShader);
-
-    // Update model states
-    //if (!models.empty()) models[0].rotate(0.7f, { 0.0f, 0.5f, 0.0f });
     
     // Make draw calls
     for (auto& model : models)
@@ -191,7 +191,7 @@ void update_frame() {
         renderer.draw_model(lightSource, lightSource.get_shader(), false);
 
     if (refgridOn)
-        renderer.draw_model(refgrid, refgridShader, false);
+        renderer.draw_model(refgrid, refgrid.get_shader(), false);
 
     // Draw GUI
     if (guiEnabled) gui.draw();

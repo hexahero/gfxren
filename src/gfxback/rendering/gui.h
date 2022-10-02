@@ -29,7 +29,7 @@ namespace GFXREN {
 
 		bool is_capturing_mouse() const;
 
-	private:
+	protected:
 
 		ImGuiIO* _guiIO;
 

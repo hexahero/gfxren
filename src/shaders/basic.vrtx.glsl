@@ -12,12 +12,14 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
+uniform mat3 modelTransposeOfInverse;
+
 void main() {
 
 	FragPos = vec3(model * vec4(aPos, 1.0f));
 	TexCoords = aTexCoords;
-	Normal = mat3(transpose(inverse(model))) * aNormal;
+	Normal = modelTransposeOfInverse * aNormal;
 
-    gl_Position = projection * view * model * vec4(FragPos, 1.0);
+    gl_Position = projection * view * vec4(FragPos, 1.0);
 
 }

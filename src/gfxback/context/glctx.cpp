@@ -47,18 +47,18 @@ namespace GFXREN {
         // Set resolution in accordance to the chosen window mode
         if (fullscreenBorderless) {
 
-            this->_wndW = static_cast<unsigned int>(_monitorResolution.x);
-            this->_wndH = static_cast<unsigned int>(_monitorResolution.y);
-            this->_wndX = 0;
-            this->_wndY = 0;
+            _wndW = static_cast<unsigned int>(_monitorResolution.x);
+            _wndH = static_cast<unsigned int>(_monitorResolution.y);
+            _wndX = 0;
+            _wndY = 0;
 
         }
         else {
             
-            this->_wndW = wndW;
-            this->_wndH = wndH;
-            this->_wndX = 0;
-            this->_wndY = 60;
+            _wndW = wndW;
+            _wndH = wndH;
+            _wndX = 0;
+            _wndY = 60;
 
         }
 
@@ -112,26 +112,39 @@ namespace GFXREN {
         return _currentFrame; 
     }
 
-    void GLCONTEXT::enable_full_screen() {
+    void GLCONTEXT::enable_full_screen_borderless() {
 
-        _fullscreen = true;
-        glfwSetWindowMonitor(_window, true ? glfwGetPrimaryMonitor() : NULL, 0, 0, 1920, 1080, _videoMode->refreshRate);
+        glfwSetWindowMonitor(_window, NULL, 0, 0, _videoMode->width, _videoMode->height, _videoMode->refreshRate);
+		_fullscreen = true;
+
+		if (_swap)
+			enable_vsync();
 
     }
 
-    void GLCONTEXT::disable_full_screen() {
-    
-        _fullscreen = false;
-        glfwSetWindowMonitor(_window, NULL, 0, 0, 1920, 1080, _videoMode->refreshRate);
+    void GLCONTEXT::disable_full_screen_borderless() {
+
+		MONITORINFO target;
+		HMONITOR hmonitor = MonitorFromWindow(GetDesktopWindow(), MONITOR_DEFAULTTOPRIMARY);
+
+		target.cbSize = sizeof(MONITORINFO);
+		GetMonitorInfo(hmonitor, &target);
+		
+		// Reverting vertical resolution to expose taskbar 
+        glfwSetWindowMonitor(_window, NULL, 0, 0, _videoMode->width, target.rcWork.bottom, _videoMode->refreshRate);
+		_fullscreen = false;
+
+		if (_swap)
+			enable_vsync();
 
     }
 
     void GLCONTEXT::toggle_full_screen() {
 
         if (!_fullscreen)
-            enable_full_screen();
+            enable_full_screen_borderless();
         else
-            disable_full_screen();
+            disable_full_screen_borderless();
 
     }
 
@@ -142,51 +155,47 @@ namespace GFXREN {
 
     void GLCONTEXT::enable_vsync() {
 
-        _swap = true;
+		typedef BOOL(WINAPI* PFNWGLSWAPINTERVALEXTPROC)(int interval);
+		PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT = NULL;
+		
+		wglSwapIntervalEXT = reinterpret_cast<PFNWGLSWAPINTERVALEXTPROC>(wglGetProcAddress("wglSwapIntervalEXT"));
+		
+		if (wglSwapIntervalEXT != nullptr) {
 
-        #ifdef _WIN32
-        
-                typedef BOOL(WINAPI* PFNWGLSWAPINTERVALEXTPROC)(int interval);
-                PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT = NULL;
-        
-                wglSwapIntervalEXT = reinterpret_cast<PFNWGLSWAPINTERVALEXTPROC>(wglGetProcAddress("wglSwapIntervalEXT"));
-                
-                if (wglSwapIntervalEXT != nullptr)
-                    wglSwapIntervalEXT(1);
-                else
-                    PRINT_ERROR("FAILED TO ENABLE VERTICAL SYNCHRONIZATION", true, false);
-        
-        #else
-        
-                #define GLFW_USE_DWM_SWAP_INTERVAL
-                glfwSwapInterval(true);
-        
-        #endif
+			#ifndef _DEBUG
+				glfwSwapInterval(true);
+			#endif
+
+			wglSwapIntervalEXT(1);
+
+			_swap = true;
+
+		}
+		else
+		    PRINT_ERROR("FAILED TO ENABLE VERTICAL SYNCHRONIZATION", true, false);
 
     }
 
     void GLCONTEXT::disable_vsync() {
 
-        _swap = false;
+		typedef BOOL(WINAPI* PFNWGLSWAPINTERVALEXTPROC)(int interval);
+		PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT = NULL;
+		
+		wglSwapIntervalEXT = reinterpret_cast<PFNWGLSWAPINTERVALEXTPROC>(wglGetProcAddress("wglSwapIntervalEXT"));
+		
+		if (wglSwapIntervalEXT != nullptr) {
 
-        #ifdef _WIN32
-        
-                typedef BOOL(WINAPI* PFNWGLSWAPINTERVALEXTPROC)(int interval);
-                PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT = NULL;
-        
-                wglSwapIntervalEXT = reinterpret_cast<PFNWGLSWAPINTERVALEXTPROC>(wglGetProcAddress("wglSwapIntervalEXT"));
-        
-                if (wglSwapIntervalEXT != nullptr)
-                    wglSwapIntervalEXT(0);
-                else
-                    PRINT_ERROR("FAILED TO DISABLE VERTICAL SYNCHRONIZATION", true, false);
-        
-        #else
-                
-                #define GLFW_USE_DWM_SWAP_INTERVAL
-                glfwSwapInterval(false);
-        
-        #endif
+			#ifndef _DEBUG
+				glfwSwapInterval(false);
+			#endif
+
+			wglSwapIntervalEXT(0);
+
+			_swap = false;
+
+		}
+		else
+		    PRINT_ERROR("FAILED TO DISABLE VERTICAL SYNCHRONIZATION", true, false);
 
     }
 
@@ -256,7 +265,7 @@ namespace GFXREN {
 
         ++ticks;
 
-        if (ticks > _refreshRate / 6) {
+        if (ticks > static_cast<unsigned int>(_videoMode->refreshRate / 6)) {
             
             unsigned int fps = get_fps();
 
@@ -311,30 +320,33 @@ namespace GFXREN {
     }
 
     int GLCONTEXT::init() {
-
+		
         glfwInit();
 
         _monitor = glfwGetPrimaryMonitor();
         _videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-        _refreshRate = _videoMode->refreshRate;
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+		glfwWindowHint(GLFW_RED_BITS,		_videoMode->redBits);
+		glfwWindowHint(GLFW_GREEN_BITS,		_videoMode->greenBits);
+		glfwWindowHint(GLFW_BLUE_BITS,		_videoMode->blueBits);
+		glfwWindowHint(GLFW_REFRESH_RATE,	_videoMode->refreshRate);
+
+        glfwWindowHint(GLFW_SAMPLES, 8); //To replace with a custom framebuffer multisampling
 
         if (_fullscreenBorderless) {
 
             glfwWindowHint(GLFW_FLOATING, GLFW_FALSE);
             glfwWindowHint(GLFW_SCALE_TO_MONITOR, GLFW_TRUE);
             glfwWindowHint(GLFW_CENTER_CURSOR, GLFW_TRUE);
-            
+
+			glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+			glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+
         }
-        
-    #ifdef __APPLE__
-
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
-    #endif
 
         return 0;
     }
@@ -405,7 +417,9 @@ namespace GFXREN {
 
             update();
 
-            if (_swap) glFinish();
+			#ifdef _DEBUG
+				glFinish();
+			#endif
 
             glfwSwapBuffers(_window);
             glfwPollEvents();
@@ -443,8 +457,8 @@ namespace GFXREN {
     }
 
     void GLCONTEXT::framebuffer_size_callback(GLFWwindow*, int width, int height) { 
-        
-        glViewport(0, 0, width, height); 
+
+        glViewport(0, 0, width, height);
     }
 
 }

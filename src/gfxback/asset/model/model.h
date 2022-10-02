@@ -46,10 +46,12 @@ namespace GFXREN {
 		float			get_ambient_light_intensity() const;
 		float			get_specularity() const;
 		unsigned int	get_pixel_mode() const;
+		glm::vec4		get_solid_color() const;
 
 		void set_ambient_light_intensity(float ambientIntensity);
 		void set_specularity(float specularIntensity);
 		void set_pixel_mode(unsigned int pixelMode);
+		void set_solid_color(glm::vec4 color);
 		
 	private:
 
@@ -63,7 +65,7 @@ namespace GFXREN {
 		glm::vec3 _mdlAngle;
 
 		glm::mat4 _modelTransformMtrx;
-		glm::mat4 _translateMtrx;
+		glm::mat4 _translationMtrx;
 		glm::mat4 _scaleMtrx;
 		glm::mat4 _rotationMtrx;
 
@@ -73,7 +75,8 @@ namespace GFXREN {
 		float _ambientIntensity;
 		float _specularIntensity;
 
-		unsigned int _pixelMode;
+		unsigned int	_pixelMode;
+		glm::vec4		_solidColor;
 
 	};
 

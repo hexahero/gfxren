@@ -21,9 +21,15 @@ namespace GFXREN {
 		void disable_lighting();
 		bool is_lighting_on() const;
 
-		void			update(const GFXREN::SHADER& shader) const;
+		void	update(const GFXREN::SHADER& shader) const;
 
-		void			set_light_color(const glm::vec4& color);
+		void	set_light_color(const glm::vec4& color);
+		void	set_light_linear_term(const float linear);
+		void	set_light_quadratic_term(const float quadratic);
+
+		float*	get_light_linear_term_pointer();
+		float*	get_light_quadratic_term_pointer();
+
 		GFXREN::SHADER&	get_shader();
 
 	private:
@@ -33,7 +39,9 @@ namespace GFXREN {
 
 		bool _isLightingOn;
 
-		glm::vec4 _lightColor;
+		glm::vec4	_lightColor;
+		float		_lightLinearTerm;
+		float		_lightQuadraticTerm;
 
 	};
 

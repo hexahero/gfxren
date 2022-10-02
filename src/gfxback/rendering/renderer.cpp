@@ -15,7 +15,8 @@ namespace GFXREN {
 	}
 
 	void RENDERER::draw_model(MODEL& model, SHADER& shader, bool wireframe) const {
-		
+
+		// Check if model should not currently be drawn
 		if (model.is_hidden()) return;
 
 		// Engage shader
@@ -29,6 +30,9 @@ namespace GFXREN {
 
 			case GFXREN_SOLID_COLOR:
 				shader.set_int("pixelMode", GFXREN_SOLID_COLOR);
+				shader.set_vec4("solidColor", model.get_solid_color());
+				shader.set_float("ambientIntensity", model.get_ambient_light_intensity());
+				shader.set_float("specularIntensity", model.get_specularity());
 				break;
 
 			case GFXREN_SURFACE_NORMALS:
@@ -47,6 +51,10 @@ namespace GFXREN {
 				shader.set_int("pixelMode", GFXREN_ILLUMINATED);
 				shader.set_float("ambientIntensity", model.get_ambient_light_intensity());
 				shader.set_float("specularIntensity", model.get_specularity());
+				break;
+
+			default:
+				PRINT_ERROR("INCORRECT PIXEL MODE", true, false);
 				break;
 
 		}

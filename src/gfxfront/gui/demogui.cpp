@@ -13,6 +13,11 @@ DEMOGUI::DEMOGUI(GFXREN::GLCONTEXT& app)
 	_showApplicationSettingsWindow(false)
 {
 
+	_guiIO->Fonts->AddFontFromFileTTF(
+		(GFXREN::UTIL::get_relative_path("gfxren") + "/resources/fonts/Roboto-Regular.ttf").c_str(),
+		13.5
+	);
+
 	// Set up GUI elements' styling
 	_style.WindowMenuButtonPosition = ImGuiDir_None;
 	_style.FrameRounding = 3.0;
@@ -37,7 +42,7 @@ DEMOGUI::DEMOGUI(GFXREN::GLCONTEXT& app)
 	_color[ImGuiCol_ScrollbarGrabHovered]	= { GFXREN_GUI_PURPLE_HOVER };
 	_color[ImGuiCol_ScrollbarGrabActive]	= { GFXREN_GUI_PURPLE_ACTIVE };
 
-	_color[ImGuiCol_SliderGrab]				= { GFXREN_GUI_PURPLE_HOVER };
+	_color[ImGuiCol_SliderGrab]				= { GFXREN_WHITE };
 	_color[ImGuiCol_SliderGrabActive]		= { GFXREN_GUI_PURPLE_ACTIVE };
 
 	_color[ImGuiCol_HeaderActive]			= { GFXREN_GUI_PURPLE_ACTIVE };
@@ -68,7 +73,7 @@ void DEMOGUI::draw_title_bar(bool* titleBar) {
 
 	// Draw window
 	if (!imgui::Begin(
-		" GFXREN DEMO (OpenGL)",
+		" GFXREN (OpenGL)",
 		titleBar,
 		ImGuiWindowFlags_NoResize |
 		ImGuiWindowFlags_NoMove |
@@ -150,7 +155,7 @@ void DEMOGUI::draw_render_settings_window(bool* renderSettingsWindow) {
 
 		imgui::SetWindowSize(renderSettingsWindowSizeXY);
 
-		// Checkbox state bools
+		// Local static data
 		static bool isFaceCullingCheckBoxChecked	= false;
 		static bool isWireframeModeCheckBoxChecked	= false;
 		static bool isSurfaceNormalsCheckBoxChecked = false;
@@ -263,8 +268,10 @@ void DEMOGUI::draw_model_listbox() {
 	if (imgui::ListBoxHeader("##Models", { modelsListboxSizeXY })) {
 
 		std::vector<unsigned int> nodesToErase;
-		unsigned int ctr = 0;
 
+		// Use of "range-based for" + counter bariable,
+		// instead of just "regular for" produces cleaner code
+		unsigned int ctr = 0;
 		for (auto& model : models) {
 
 			std::string itemName = model.get_name();
@@ -315,6 +322,23 @@ void DEMOGUI::draw_model_listbox() {
 
 				}
 
+				// Create slide bar for scaling
+				ImGui::PushID("scaleSlider");
+				push_style_color(ImGuiCol_FrameBg, { GFXREN_BLACK_NONNORM });
+
+				if (ImGui::SliderFloat("scale", &_modelAttributes[ctr]._scaleFloat, 0.1f, 100.0f)) {
+
+					model.set_scale(
+						_modelAttributes[ctr]._scaleFloat,
+						_modelAttributes[ctr]._scaleFloat,
+						_modelAttributes[ctr]._scaleFloat
+					);
+
+				}
+
+				pop_style_color();
+				ImGui::PopID();
+
 				imgui::Text(" \nPOSITION");
 
 				// Create InputFloat fields for translating
@@ -330,6 +354,16 @@ void DEMOGUI::draw_model_listbox() {
 				imgui::InputFloat(" Z axis", &_modelAttributes[ctr]._translateVec.z, 0.5f, INFINITY, "%.3f");
 				imgui::PopItemWidth();
 
+				if (imgui::Button("Set back to origin", { 100, 20 })) {
+
+					_modelAttributes[ctr]._translateVec.x = 0.0f;
+					_modelAttributes[ctr]._translateVec.y = 0.0f;
+					_modelAttributes[ctr]._translateVec.z = 0.0f;
+
+					models[ctr].set_position(0.0f, 0.0f, 0.0f);
+
+				}
+
 				// Translate model
 				models[ctr].set_position(
 					_modelAttributes[ctr]._translateVec.x,
@@ -337,21 +371,24 @@ void DEMOGUI::draw_model_listbox() {
 					_modelAttributes[ctr]._translateVec.z
 				);
 
-				
 				// Material setting
 				imgui::Text(" \nMATERIAL AND LIGHTING");
 
-				ImGui::PushID("sliders temp styling");
+				ImGui::PushID("materialAndLightingSliders");
 				push_style_color(ImGuiCol_FrameBg, { GFXREN_BLACK_NONNORM });
 
-				ImGui::SliderFloat("ambient light", &_modelAttributes[ctr]._ambientIntensityFloat, -1.5f, 3.0f);
-				ImGui::SliderFloat("specularity",	&_modelAttributes[ctr]._specularityFloat, 0.0f, 110.0f);
+				if (ImGui::SliderFloat("ambient light", &_modelAttributes[ctr]._ambientIntensityFloat, -1.5f, 3.0f)) {
+
+					model.set_ambient_light_intensity(_modelAttributes[ctr]._ambientIntensityFloat);
+				}
+
+				if (ImGui::SliderFloat("specularity", &_modelAttributes[ctr]._specularityFloat, 0.0f, 110.0f)) {
+
+					model.set_specularity(_modelAttributes[ctr]._specularityFloat);
+				}
 
 				pop_style_color();
 				ImGui::PopID();
-
-				model.set_ambient_light_intensity(_modelAttributes[ctr]._ambientIntensityFloat);
-				model.set_specularity(_modelAttributes[ctr]._specularityFloat);
 
 				// Set pixel mode radio buttons
 				imgui::Text(" \nCOLORING MODE");
@@ -363,6 +400,22 @@ void DEMOGUI::draw_model_listbox() {
 				ImGui::RadioButton("Texture only",		&_modelAttributes[ctr]._coloringMode, 3);
 				ImGui::RadioButton("Surface normals",	&_modelAttributes[ctr]._coloringMode, 2);
 				ImGui::RadioButton("Solid color",		&_modelAttributes[ctr]._coloringMode, 1);
+
+				if (_modelAttributes[ctr]._coloringMode == GFXREN_SOLID_COLOR ) {
+
+					imgui::SameLine();
+					if (imgui::ColorEdit4("##solidColor", _modelAttributes[ctr]._solidColor, ImGuiColorEditFlags_NoInputs)) {
+
+						model.set_solid_color({
+							_modelAttributes[ctr]._solidColor[0],
+							_modelAttributes[ctr]._solidColor[1],
+							_modelAttributes[ctr]._solidColor[2],
+							_modelAttributes[ctr]._solidColor[3]
+						});
+
+					}
+
+				}
 
 				pop_style_color();
 				ImGui::PopID();
@@ -455,21 +508,71 @@ void DEMOGUI::draw_scene_settings_window(bool* sceneSettingsWindow) {
 
 		imgui::SetWindowSize(sceneSettingsWindowSizeXY);
 
-		// Checkbox state bools
+		// Local static data
 		static bool isHideRefGridCheckBoxChecked		= false;
 		static bool isHideLightSourceCheckBoxChecked	= false;
 		static bool isDisabeLightingCheckBoxChecked		= false;
+
+		static float cameraSpeed = camera.get_speed();
+		static float cameraFrustumFarPlane = camera.get_frustum_far_plane();
+
+		static float* linearTerm = lightSource.get_light_linear_term_pointer();
+		static float* quadraticTerm = lightSource.get_light_quadratic_term_pointer();
 
 		// Checkboxes
 		imgui::Checkbox(" Hide reference grid",			&isHideRefGridCheckBoxChecked);
 		imgui::Checkbox(" Hide light source sphere",	&isHideLightSourceCheckBoxChecked);
 		imgui::Checkbox(" Disable lighting",			&isDisabeLightingCheckBoxChecked);
 
-		// Lighting color palette
-		imgui::Text("\nLighting color");
-		imgui::ColorEdit4("color", lightingColor);
+		// Camera speed and frustum adjustment fields
+		imgui::Text("\nCAMERA");
 
-		lightSource.set_light_color({ lightingColor[0], lightingColor[1], lightingColor[2], lightingColor[3] });
+		ImGui::PushID("cameraFrustumAndSpeedAdjustmentFields");
+		push_style_color(ImGuiCol_FrameBg, { GFXREN_GUI_GREY_WINBG });
+		push_style_color(ImGuiCol_Button, { GFXREN_PURPLE_NONNORM });
+
+		imgui::PushItemWidth(100.0f);
+		if (imgui::InputFloat("camera speed", &cameraSpeed, 1.0f, 9999999.0f, "%.1f")) {
+
+			camera.set_speed(cameraSpeed);
+		}
+		imgui::PopItemWidth();
+
+		imgui::PushItemWidth(100.0f);
+		if (imgui::InputFloat("camera frustum far plane distance", &cameraFrustumFarPlane, 100.0f, 9999999.0f, "%.1f")) {
+
+			camera.set_frustum_far_plane(cameraFrustumFarPlane);
+		}
+		imgui::PopItemWidth();
+
+		pop_style_color(2);
+		ImGui::PopID();
+
+		// Lighting linear and quadratic term adjustment sliders
+		imgui::Text("\nLIGHTING");
+		
+		ImGui::PushID("linearAndQuadraticTermSliders");
+		push_style_color(ImGuiCol_FrameBg, { GFXREN_BLACK_NONNORM });
+
+		if (ImGui::SliderFloat("linear term", linearTerm, 0.001f, 0.5f, "%.4f")) {
+
+			lightSource.set_light_linear_term(*linearTerm);
+		}
+
+		if (ImGui::SliderFloat("quadratic term", quadraticTerm, 0.001f, 0.05f, "%.4f")) {
+
+			lightSource.set_light_quadratic_term(*quadraticTerm);
+		}
+
+		pop_style_color();
+		ImGui::PopID();
+
+		// Lighting color palette
+		imgui::Text("Lighting color");
+		if (imgui::ColorEdit4("##lightingColor", lightingColor)) {
+
+			lightSource.set_light_color({ lightingColor[0], lightingColor[1], lightingColor[2], lightingColor[3] });
+		}
 
 		// Behaviour
 		if (isHideRefGridCheckBoxChecked)
@@ -526,12 +629,9 @@ void DEMOGUI::draw_application_settings_window(bool* applicationSettingsWindow) 
 		imgui::SetWindowSize(applicationSettingsSizeXY);
 
 		imgui::Checkbox(" Open ImGui demo window", &isEnableImGuiDemoWindowCheckBoxChecked);
-
 		if (isEnableImGuiDemoWindowCheckBoxChecked) imgui::ShowDemoWindow();
 
-		imgui::Text((
-			"\nSYSTEM INFO:\n" + _app.get_system_info()
-		).c_str());
+		imgui::Text(("\nSYSTEM INFO\n" + _app.get_system_info()).c_str());
 
 		imgui::End();
 

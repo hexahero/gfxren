@@ -4,12 +4,13 @@ namespace GFXREN {
 
     CAMERA::CAMERA(unsigned int wndW, unsigned int wndH, glm::vec3 position)
         :
+		_speed{ 5.0f },
         _cameraPosVec(position),
         _worldUpVec(glm::vec3(0.0f, 1.0f, 0.0f)),
         _cameraFrontVec(glm::vec3(0.0f, 0.0f, -1.0f)),
         _yawVal(-90.0f),
         _pitchVal(0.0f),
-        _speedVal(2.5f),
+        _speedTimeVal(2.5f),
         _zoomVal(45.0f),
         _frustumNearPlane(0.1f),
         _frustumFarPlane(300.0f),
@@ -20,7 +21,12 @@ namespace GFXREN {
         update_vectors();
     }
 
-    void CAMERA::update(const GFXREN::SHADER& shader) {
+	void CAMERA::update(double frameDeltaTime) {
+
+		_speedTimeVal = float(frameDeltaTime * _speed);
+	}
+
+    void CAMERA::update_shader(const GFXREN::SHADER& shader) {
         
         shader.use();
 
@@ -34,55 +40,56 @@ namespace GFXREN {
 
         switch (direction) {
 
-            case CAM_DIR_FORWARD: _cameraPosVec += _cameraFrontVec * _speedVal;
+            case CAM_DIR_FORWARD: _cameraPosVec += _cameraFrontVec * _speedTimeVal;
                 break;
 
-            case CAM_DIR_BACKWARD: _cameraPosVec -= _cameraFrontVec * _speedVal;
+            case CAM_DIR_BACKWARD: _cameraPosVec -= _cameraFrontVec * _speedTimeVal;
                 break;
 
-            case CAM_DIR_RIGHT: _cameraPosVec += _cameraRightVec * _speedVal;
+            case CAM_DIR_RIGHT: _cameraPosVec += _cameraRightVec * _speedTimeVal;
                 break;
 
-            case CAM_DIR_LEFT: _cameraPosVec -= _cameraRightVec * _speedVal;
+            case CAM_DIR_LEFT: _cameraPosVec -= _cameraRightVec * _speedTimeVal;
                 break;
 
-            case CAM_DIR_UP: _cameraPosVec += _cameraUpVec * _speedVal;
+            case CAM_DIR_UP: _cameraPosVec += _cameraUpVec * _speedTimeVal;
                 break;
 
-            case CAM_DIR_DOWN: _cameraPosVec -= _cameraUpVec * _speedVal;
+            case CAM_DIR_DOWN: _cameraPosVec -= _cameraUpVec * _speedTimeVal;
                 break;
 
         }
 
     }
 
-    void CAMERA::move_forward() { 
+    void CAMERA::move_forward() {
         
-        _cameraPosVec += _cameraFrontVec * _speedVal; 
+        _cameraPosVec += _cameraFrontVec * _speedTimeVal;
     }
 
-    void CAMERA::move_backward() { 
+    void CAMERA::move_backward() {
         
-        _cameraPosVec -= _cameraFrontVec * _speedVal; 
+        _cameraPosVec -= _cameraFrontVec * _speedTimeVal;
     }
 
-    void CAMERA::move_right() { 
+    void CAMERA::move_right() {
         
-        _cameraPosVec += _cameraRightVec * _speedVal; 
+        _cameraPosVec += _cameraRightVec * _speedTimeVal;
     }
 
-    void CAMERA::move_left() { 
+    void CAMERA::move_left() {
         
-        _cameraPosVec -= _cameraRightVec * _speedVal; 
+        _cameraPosVec -= _cameraRightVec * _speedTimeVal;
     }
 
-    void CAMERA::move_up() { 
-        _cameraPosVec += _cameraUpVec * _speedVal; 
+    void CAMERA::move_up() {
+
+        _cameraPosVec += _cameraUpVec * _speedTimeVal;
     }
 
-    void CAMERA::move_down() { 
+    void CAMERA::move_down() {
         
-        _cameraPosVec -= _cameraUpVec * _speedVal; 
+        _cameraPosVec -= _cameraUpVec * _speedTimeVal; 
     }
 
     void CAMERA::look_at(float dx, float dy) {
@@ -90,18 +97,28 @@ namespace GFXREN {
         _yawVal += dx;
         _pitchVal += dy;
 
-        if (_pitchVal > 89.0f) { _pitchVal = 89.0f; }
-        else if (_pitchVal < -89.0f) { _pitchVal = -89.0f; }
+        if (_pitchVal > 89.0f)
+			_pitchVal = 89.0f;
+        else if (_pitchVal < -89.0f)
+			_pitchVal = -89.0f;
         
     }
 
     void CAMERA::zoom(float dy) {
 
-        if (_zoomVal >= 1.0f && _zoomVal <= 45.0f) { _zoomVal -= dy; }
-        else if (_zoomVal < 1.0f) { _zoomVal = 1.0f; }
-        else { _zoomVal = 45.0f; }
+        if (_zoomVal >= 1.0f && _zoomVal <= 45.0f)
+			_zoomVal -= dy;
+        else if (_zoomVal < 1.0f)
+			_zoomVal = 1.0f;
+        else
+			_zoomVal = 45.0f;
         
     }
+
+	void CAMERA::set_frustum_far_plane(const float farPlane) {
+
+		_frustumFarPlane = farPlane;
+	}
     
     void CAMERA::set_yaw(float yaw) {
 
@@ -118,10 +135,20 @@ namespace GFXREN {
         _zoomVal = zoom;
     }
 
-    void CAMERA::set_speed(float value, double deltaTime) { 
+    void CAMERA::set_speed(float value) { 
         
-        _speedVal = float(deltaTime * value); 
+		_speed = value;
     }
+
+	void CAMERA::set_speed_time(float value) {
+
+		_speedTimeVal = value;
+	}
+
+	float CAMERA::get_frustum_far_plane() const {
+
+		return _frustumFarPlane;
+	}
 
     float CAMERA::get_yaw() const { 
         
@@ -138,9 +165,14 @@ namespace GFXREN {
         return _zoomVal; 
     }
 
-    float CAMERA::get_speed() const {
+	float CAMERA::get_speed() const {
 
-        return _speedVal;
+		return _speed;
+	}
+
+    float CAMERA::get_speed_time() const {
+
+        return _speedTimeVal;
     }
 
     glm::vec3 CAMERA::get_position() const {

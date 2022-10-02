@@ -26,6 +26,8 @@ namespace GFXREN {
 		inline void			use() const;
 		inline unsigned int get_id() const;
 
+		inline void set_mat2(const std::string& name, const glm::mat2& mat) const;
+		inline void set_mat3(const std::string& name, const glm::mat3& mat) const;
 		inline void set_mat4(const std::string& name, const glm::mat4& mat) const;
 		inline void set_bool(const std::string& name, bool value) const;
 		inline void set_int(const std::string& name, int value) const;
@@ -59,6 +61,16 @@ namespace GFXREN {
 		glUseProgram(_shaderProgramID);
 	}
 
+	void SHADER::set_mat2(const std::string& name, const glm::mat2& mat) const {
+
+		glUniformMatrix2fv(glGetUniformLocation(_shaderProgramID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+	}
+
+	void SHADER::set_mat3(const std::string& name, const glm::mat3& mat) const {
+
+		glUniformMatrix3fv(glGetUniformLocation(_shaderProgramID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+	}
+
 	void  SHADER::set_mat4(const std::string& name, const glm::mat4& mat) const {
 
 		glUniformMatrix4fv(glGetUniformLocation(_shaderProgramID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
@@ -75,9 +87,7 @@ namespace GFXREN {
 	}
 
 	void SHADER::set_float(const std::string& name, float value) const {
-		//if (name.c_str() == "material.texture_diffuse1" || name.c_str() == "material.texture_diffuse2") return;
-		//std::cout << name.c_str() << "\n";////////////////////
-		//std::cout << value << "\n";////////////////////
+
 		glUniform1f(glGetUniformLocation(_shaderProgramID, name.c_str()), value);
 	}
 
@@ -92,9 +102,7 @@ namespace GFXREN {
 	}
 
 	void SHADER::set_vec3(const std::string& name, float v1, float v2, float v3) const {
-		//if (name.c_str() == "material.texture_diffuse1" || name.c_str() == "material.texture_diffuse2") return;
-		//std::cout << name.c_str() << "\n";////////////////////
-		//std::cout << v1 << ' ' << v2 << ' ' << v3 << "\n";////////////////////
+
 		glUniform3f(glGetUniformLocation(_shaderProgramID, name.c_str()), v1, v2, v3);
 	}
 
@@ -104,9 +112,7 @@ namespace GFXREN {
 	}
 
 	void SHADER::set_vec4(const std::string& name, float v1, float v2, float v3, float v4) const {
-		//if (name.c_str() == "material.texture_diffuse1" || name.c_str() == "material.texture_diffuse2") return;
-		//std::cout << name.c_str() << "\n";////////////////////
-		//std::cout << v1 << ' ' << v2 << ' ' << v3 << v4 << "\n";////////////////////
+
 		glUniform4f(glGetUniformLocation(_shaderProgramID, name.c_str()), v1, v2, v3, v4);
 	}
 

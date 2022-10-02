@@ -18,7 +18,8 @@ namespace GFXREN {
 		_isHidden(false),
 		_ambientIntensity{ 0.5f },
 		_specularIntensity{ 0.5f },
-		_pixelMode{ GFXREN_ILLUMINATED }
+		_pixelMode{ GFXREN_ILLUMINATED },
+		_solidColor{ 0.0f, 1.0f, 0.0f, 1.0f }
 	{
 
 		reset_transform_matrices();
@@ -38,6 +39,7 @@ namespace GFXREN {
 		_ambientIntensity(model._ambientIntensity),
 		_specularIntensity(model._specularIntensity),
 		_pixelMode{ model._pixelMode },
+		_solidColor{ 0.15f, 0.15f, 0.15f, 1.0f },
 		GFXREN::MODELBASE(std::move(model))
 	{
 
@@ -62,6 +64,7 @@ namespace GFXREN {
 
 			_isHidden = model._isHidden;
 			_pixelMode = model._pixelMode;
+			_solidColor = model._solidColor;
 
 			GFXREN::MODELBASE::operator = (std::move(model));
 
@@ -90,11 +93,14 @@ namespace GFXREN {
 
 	void MODEL::update(const GFXREN::SHADER& shader) {
 
-		_translateMtrx = glm::translate(_translateMtrx, _mdlPos);
+		_translationMtrx = glm::translate(_translationMtrx, _mdlPos);
 		_scaleMtrx = glm::scale(_scaleMtrx, _mdlScale);
-		_modelTransformMtrx = _translateMtrx * _rotationMtrx * _scaleMtrx;
+		_modelTransformMtrx = _translationMtrx * _rotationMtrx * _scaleMtrx;
+
+		glm::mat3 modelTransposeOfInverse = glm::transpose(glm::inverse(_modelTransformMtrx));
 
 		shader.set_mat4("model", _modelTransformMtrx);
+		shader.set_mat3("modelTransposeOfInverse", modelTransposeOfInverse);
 
 		reset_transform_matrices();
 
@@ -103,7 +109,7 @@ namespace GFXREN {
 	void MODEL::reset_transform_matrices() {
 		
 		_modelTransformMtrx	=
-		_translateMtrx		=
+		_translationMtrx		=
 		_scaleMtrx			=
 		_rotationMtrx		= glm::mat4(1.0f);
 
@@ -119,7 +125,7 @@ namespace GFXREN {
 
 	void MODEL::set_position(float x, float y, float z) {
 
-		_translateMtrx = glm::mat4(1.0f);
+		_translationMtrx = glm::mat4(1.0f);
 
 		_mdlPos.x = x;
 		_mdlPos.y = y;
@@ -187,9 +193,14 @@ namespace GFXREN {
 		return _specularIntensity;
 	}
 
-	unsigned int MODEL::get_pixel_mode() const {
+	glm::vec4 MODEL::get_solid_color() const {
 
-		return _pixelMode;
+		return _solidColor;
+	}
+
+	void MODEL::set_solid_color(glm::vec4 color) {
+
+		_solidColor = color;
 	}
 
 	void MODEL::set_ambient_light_intensity(float ambientIntensity) {
@@ -205,6 +216,11 @@ namespace GFXREN {
 	void MODEL::set_pixel_mode(unsigned int pixelMode) {
 
 		_pixelMode = pixelMode;
+	}
+
+	unsigned int MODEL::get_pixel_mode() const {
+
+		return _pixelMode;
 	}
 
 }

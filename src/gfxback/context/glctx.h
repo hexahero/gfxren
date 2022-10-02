@@ -3,8 +3,10 @@
 #include <Windows.h>
 #include <sstream>
 
+#define GLFW_EXPOSE_NATIVE_WIN32
 #include <glad.h>
 #include <GLFW/glfw3.h>
+#include <GLFW/glfw3native.h>
 
 #include <glm.hpp>
 
@@ -47,8 +49,8 @@ namespace GFXREN {
         double      get_currentFrameTime() const;
 
         // Monitor and resolution related methods
-        void enable_full_screen();
-        void disable_full_screen();
+        void enable_full_screen_borderless();
+        void disable_full_screen_borderless();
         void toggle_full_screen();
         bool is_fullscreen() const;
 
@@ -104,12 +106,11 @@ namespace GFXREN {
         unsigned int _wndH;
 
         // Monitor and resolution data
-        const glm::vec2     _monitorResolution;
         GLFWmonitor*        _monitor;
-        const GLFWvidmode*  _videoMode;
+		const GLFWvidmode*	_videoMode;
+		const glm::vec2     _monitorResolution;
         bool                _fullscreenBorderless;
         bool                _fullscreen;
-        unsigned int        _refreshRate;
 
         bool _faceCulling;
         bool _swap;
@@ -185,8 +186,8 @@ namespace GFXREN {
 
         info
             << processorArchitecture << ", " << cpuInfoString
-            << '\n' << "logical processors: " << sysInfo.dwNumberOfProcessors
-            << "\ntotal system memory: " << (memstat.ullTotalPhys / 1024) / 1024 << "MB\n";
+            << '\n' << "logical processors:\t\t " << sysInfo.dwNumberOfProcessors
+            << "\ntotal system memory:\t" << (memstat.ullTotalPhys / 1024) / 1024 << "MB\n";
 
         return info.str();
     }

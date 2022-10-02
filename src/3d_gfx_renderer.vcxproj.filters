@@ -145,8 +145,11 @@
     <ClCompile Include="gfxfront\gui\demogui.cpp">
       <Filter>Source Files\gfxfront\demogui</Filter>
     </ClCompile>
+    <ClCompile Include="gfxback\scene\refgrid.cpp">
+      <Filter>Source Files\gfxback\scene</Filter>
+    </ClCompile>
     <ClCompile Include="gfxback\scene\lightsource.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\gfxback\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -268,6 +271,9 @@
       <Filter>Source Files\gfxback\scene</Filter>
     </ClInclude>
     <ClInclude Include="gfxback\scene\lightsource.h">
+      <Filter>Source Files\gfxback\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="gfxback\scene\refgrid.h">
       <Filter>Source Files\gfxback\scene</Filter>
     </ClInclude>
   </ItemGroup>

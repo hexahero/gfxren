@@ -17,4 +17,5 @@
 #include "../gfxback/rendering/gui.h"
 #include "../gfxback/scene/camera.h"
 #include "../gfxback/scene/lightsource.h"
+#include "../gfxback/scene/refgrid.h"
 #include "../gfxback/asset/model/model.h"

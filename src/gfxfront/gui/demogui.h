@@ -10,20 +10,21 @@
 extern float						clearColor[4];
 extern bool							refgridOn;
 extern bool							lightSourceOn;
+extern GFXREN::CAMERA			    camera;
 extern GFXREN::LIGHTSOURCE			lightSource;
 extern std::vector<GFXREN::MODEL>	models;
 
 namespace {
 
 	// Sizes
-	constexpr ImVec2 renderSettingsWindowSizeXY		= { 500.0f, 300.0f };
+	constexpr ImVec2 renderSettingsWindowSizeXY		= { 420.0f, 300.0f };
 
-	constexpr ImVec2 modelsSettingsWindowSizeXY		= { 500.0f, 620.0f };
-	constexpr ImVec2 modelsListboxSizeXY			= { 485.0f, 511.0f };
+	constexpr ImVec2 modelsSettingsWindowSizeXY		= { 420.0f, 620.0f };
+	constexpr ImVec2 modelsListboxSizeXY			= { 405.0f, 511.0f };
 	constexpr ImVec2 addModelButtonSizeXY			= { 110, 20 };
 
-	constexpr ImVec2 sceneSettingsWindowSizeXY		= { 500.0f, 300.0f };
-	constexpr ImVec2 applicationSettingsSizeXY		= { 500.0f, 300.0f };
+	constexpr ImVec2 sceneSettingsWindowSizeXY		= { 420.0f, 370.0f };
+	constexpr ImVec2 applicationSettingsSizeXY		= { 420.0f, 300.0f };
 
 	// Offsets
 	constexpr ImVec2 renderSettingsWindowOffsetXY		= { 12, 60 };
@@ -41,6 +42,7 @@ struct MDLATTRIB {
 
 	float			_ambientIntensityFloat = 0.5f;
 	float			_specularityFloat = 0.5f;
+	float			_solidColor[4] = { 0.15f, 0.15f, 0.15f, 1.0f };
 
 };
 

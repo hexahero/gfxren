@@ -2,7 +2,6 @@
 
 TODO:
 
-make Exceptions class actually throw exceptions xddd
 deal with shader linkage incorrect exception
 handle call errors in modules
 
@@ -57,23 +56,13 @@ GFXREN::KEYBOARD keyboard(app.get_window_handle());
 GFXREN::LOGGER<const char*> logger;
 DEMOGUI gui(app);
 
+GFXREN::REFGRID refgrid;
+GFXREN::LIGHTSOURCE lightSource(camera);
+
 GFXREN::SHADER basicShader(
     DEFAULT_DIR"basic.vrtx.glsl",
     DEFAULT_DIR"basic.pxl.glsl"
 );
-
-GFXREN::SHADER refgridShader(
-    DEFAULT_DIR"scene/refgrid.vrtx.glsl",
-    DEFAULT_DIR"scene/refgrid.pxl.glsl"
-);
-
-GFXREN::MODEL refgrid(
-    "Reference grid",
-    GFXREN::UTIL::get_relative_path("gfxren") + "resources/models/refgrid/refgrid.gltf",
-    { 0.0f, 0.0f, 0.0f }
-);
-
-GFXREN::LIGHTSOURCE lightSource(camera);
 
 #endif
 
