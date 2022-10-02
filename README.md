@@ -21,9 +21,10 @@ For an IDE agnostic build use `buildnrun.bat`, release only (`msbuild` path has 
 ## **Controls**<br>
 `W, A, S, D` - Moves camera forwards, to the left, backwards and to the right respectively<br>
 `Spacebar` - Moves camera upwards<br>
-`F` - Toggle borderless fullscreen mode (also changes camera mode)<br>
+`F` - Toggle borderless fullscreen mode<br>
 `G` - Toggle GUI<br>
-`I` - Print GPU info<br>
+`Mouse left button` - Camera control<br>
+`Mouse right button` - Toggle cursor and camera mode<br>
 `Mouse scroll` - Zoom in/out
 
 ## **Features Implemented**<br>
