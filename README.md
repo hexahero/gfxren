@@ -38,14 +38,14 @@ For an IDE agnostic build use `buildnrun.bat`, release only (`msbuild` path has 
 ## **Module Info**<br>
 | Directory | Information |
 |---|---|
-|[`asset`](https://github.com/hexahero/gfxren/tree/master/3d_gfx_renderer/gfxback/asset)        |Functionality necessary for importing textures, constructing meshes and models. Model 3D transformations.|
-|[`context`](https://github.com/hexahero/gfxren/tree/master/3d_gfx_renderer/gfxback/context)    |Provides application's front-end with components, needed to create window and rendering context. Interacts with operating system/window-specific stuff.   |
-|[`gpudata`](https://github.com/hexahero/gfxren/tree/master/3d_gfx_renderer/gfxback/gpudata)    |Components allowing data transition between system and GPU memory. Data buffer creation.<br> Data upload and description. |
-|[`input`](https://github.com/hexahero/gfxren/tree/master/3d_gfx_renderer/gfxback/input)        |Keyboard and mouse input handling. Key binding.|
-|[`rendering`](https://github.com/hexahero/gfxren/tree/master/3d_gfx_renderer/gfxback/rendering)|Contains component responsible for drawing graphics and interaction with shader programs.|
-|[`scene`](https://github.com/hexahero/gfxren/tree/master/3d_gfx_renderer/gfxback/scene)        |Provides transformations for camera-like behaviour.|
-|[`shader`](https://github.com/hexahero/gfxren/tree/master/3d_gfx_renderer/gfxback/shader)      |Shader program compilation and linkage. Provides interface between C++ and GLSL programs.|
-|[`util`](https://github.com/hexahero/gfxren/tree/master/3d_gfx_renderer/gfxback/util)          |Logging, exception handling etc.|
+|[`asset`](https://github.com/hexahero/gfxren/tree/master/src/gfxback/asset)        |Functionality necessary for importing textures, constructing meshes and models. Model 3D transformations.|
+|[`context`](https://github.com/hexahero/gfxren/tree/master/src/gfxback/context)    |Provides application's front-end with components, needed to create window and rendering context. Interacts with operating system/window-specific stuff.   |
+|[`gpudata`](https://github.com/hexahero/gfxren/tree/master/src/gfxback/gpudata)    |Components allowing data transition between system and GPU memory. Data buffer creation.<br> Data upload and description. |
+|[`input`](https://github.com/hexahero/gfxren/tree/master/src/gfxback/input)        |Keyboard and mouse input handling. Key binding.|
+|[`rendering`](https://github.com/hexahero/gfxren/tree/master/src/gfxback/rendering)|Contains component responsible for drawing graphics and interaction with shader programs.|
+|[`scene`](https://github.com/hexahero/gfxren/tree/master/src/gfxback/scene)        |Provides transformations for camera-like behaviour.|
+|[`shader`](https://github.com/hexahero/gfxren/tree/master/src/gfxback/shader)      |Shader program compilation and linkage. Provides interface between C++ and GLSL programs.|
+|[`util`](https://github.com/hexahero/gfxren/tree/master/src/gfxback/util)          |Logging, exception handling etc.|
 
 ## **Roadmap**<br>
 Nearest future
